@@ -20,5 +20,6 @@
   <%= @software.state %>
 </p>
 
+<%= link_to 'Download', download_software_url(@software) %> |
 <%= link_to 'Edit', edit_software_path(@software) %> |
 <%= link_to 'Back', softwares_path %>

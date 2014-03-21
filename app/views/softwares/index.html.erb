@@ -20,6 +20,7 @@
         <td><%= software.path %></td>
         <td><%= software.operating_system_id %></td>
         <td><%= software.state %></td>
+        <td><%= link_to 'Download', download_software_url(software) %></td>
         <td><%= link_to 'Show', software %></td>
         <td><%= link_to 'Edit', edit_software_path(software) %></td>
         <td><%= link_to 'Destroy', software, method: :delete, data: { confirm: 'Are you sure?' } %></td>
