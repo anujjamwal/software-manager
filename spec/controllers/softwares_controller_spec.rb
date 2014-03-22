@@ -49,7 +49,10 @@ describe SoftwaresController do
 
   describe "GET download" do
     it "downloads the file at path in @software" do
+      policy = DownloadPolicy.find_or_create_by_id(1)
       software = Software.create! valid_attributes
+      software.download_policy = policy
+      software.save!
 
       controller.should_receive(:send_file)
                 .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')

@@ -6,6 +6,7 @@ describe "softwares/edit" do
       :name => "MyString",
       :path => "MyString",
       :operating_system_id => 1,
+      :download_policy_id => 1,
       :state => "MyString"
     ))
   end
@@ -18,7 +19,7 @@ describe "softwares/edit" do
       assert_select "input#software_name[name=?]", "software[name]"
       assert_select "input#software_path[name=?]", "software[path]"
       assert_select "input#software_operating_system_id[name=?]", "software[operating_system_id]"
-      assert_select "input#software_state[name=?]", "software[state]"
+      assert_select "select#software_download_policy_id[name=?]", "software[download_policy_id]"
     end
   end
 end
