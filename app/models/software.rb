@@ -1,6 +1,7 @@
 class Software < ActiveRecord::Base
   belongs_to :operating_system
   belongs_to :download_policy
+  has_many :licenses
 
   validates :name, :path, :state, :operating_system, presence: true
 
@@ -9,7 +10,7 @@ class Software < ActiveRecord::Base
 
   private
   def defaults
-    self.state = :ready
+    self.state = :approved
   end
 
   def set_default_download_policy

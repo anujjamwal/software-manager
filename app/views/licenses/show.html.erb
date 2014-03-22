@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Software:</strong>
+  <%= @license.software_id %>
+</p>
+
+<p>
+  <strong>License user:</strong>
+  <%= @license.license_user %>
+</p>
+
+<p>
+  <strong>License:</strong>
+  <%= @license.license %>
+</p>
+
+<p>
+  <strong>User count:</strong>
+  <%= @license.user_count %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @license.purchase_date %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @license.cost %>
+</p>
+
+<%= link_to 'Edit', edit_license_path(@license) %> |
+<%= link_to 'Back', licenses_path %>

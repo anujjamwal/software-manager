@@ -1,4 +1,8 @@
 SoftwareManager::Application.routes.draw do
+  resources :allocations
+
+  resources :licenses
+
   resources :operating_systems
 
   resources :softwares do

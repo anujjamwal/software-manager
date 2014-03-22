@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321201549) do
+ActiveRecord::Schema.define(version: 20140321204924) do
+
+  create_table "allocations", force: true do |t|
+    t.integer  "license_id"
+    t.integer  "user_id"
+    t.string   "project_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "download_policies", force: true do |t|
     t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "licenses", force: true do |t|
+    t.integer  "software_id"
+    t.string   "license_user"
+    t.text     "license",       limit: 4096
+    t.integer  "user_count"
+    t.date     "purchase_date"
+    t.integer  "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,7 +51,6 @@ ActiveRecord::Schema.define(version: 20140321201549) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "policy_id"
     t.integer  "download_policy_id"
   end
 
