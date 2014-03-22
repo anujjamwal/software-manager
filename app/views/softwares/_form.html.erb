@@ -24,8 +24,8 @@
     <%= f.number_field :operating_system_id %>
   </div>
   <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.label :download_policy_id %><br>
+    <%= f.collection_select(:download_policy_id, DownloadPolicy.all, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

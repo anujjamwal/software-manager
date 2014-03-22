@@ -4,4 +4,8 @@ class DownloadPolicy < ActiveRecord::Base
   def permit?(software, user)
     true
   end
+
+  def name
+    self.class.name
+  end
 end

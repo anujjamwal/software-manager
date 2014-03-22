@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321204924) do
+ActiveRecord::Schema.define(version: 20140322090000) do
 
   create_table "allocations", force: true do |t|
     t.integer  "license_id"
@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 20140321204924) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "policy_id"
     t.integer  "download_policy_id"
+    t.integer  "download_count"
   end
 
   create_table "users", force: true do |t|

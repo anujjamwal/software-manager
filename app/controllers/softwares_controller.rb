@@ -62,7 +62,12 @@ class SoftwaresController < ApplicationController
   end
 
   def download
-    send_file @software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream'
+    if @software.download_policy.permit?(@software, current_user)
+      send_file @software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream'
+      @software.increment(:download_count)
+    else
+      redirect_to :back, notice: "You donot seen to have permission to download #{@software.name}. Please contact admin"
+    end
   end
 
   private
@@ -73,6 +78,6 @@ class SoftwaresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def software_params
-      params.require(:software).permit(:name, :path, :operating_system_id, :state)
+      params.require(:software).permit(:name, :path, :operating_system_id, :download_policy_id)
     end
 end
