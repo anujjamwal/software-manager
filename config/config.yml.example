@@ -1,0 +1,8 @@
+development:
+    storage:
+
+test:
+    storage:
+
+production:
+    storage:

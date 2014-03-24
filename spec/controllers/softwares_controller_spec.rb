@@ -23,13 +23,14 @@ describe SoftwaresController do
   # This should return the minimal set of attributes required to create a valid
   # Software. As you add validations to Software, be sure to
   # adjust the attributes here as well.
-  let(:operating_system) { OperatingSystem.create(name: 'Windows')}
-  let(:valid_attributes) { { "name" => "MyString", "path" => 'path/to/software', 'operating_system_id' => operating_system.id } }
+  let(:operating_system) { OperatingSystem.create(name: 'Windows') }
+  let(:download_policy) { DownloadPolicy.first }
+  let(:valid_attributes) { {"name" => "MyString", "path" => 'path/to/software', 'operating_system_id' => operating_system.id, 'download_policy_id' => download_policy.id} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SoftwaresController. Be sure to keep this updated too.
-  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com', role: UserRole.first)}
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com', role: UserRole.first) }
   let(:valid_session) { {'user_id' => auth_user.id} }
 
 
@@ -51,14 +52,13 @@ describe SoftwaresController do
 
   describe "GET download" do
     it "downloads the file at path in @software" do
-      policy = DownloadPolicy.find_or_create_by_id(1)
       software = Software.create! valid_attributes
-      software.download_policy = policy
+      software.download_policy = download_policy
       software.save!
 
       controller.should_receive(:send_file)
-                .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')
-                .and_return{controller.render :nothing => true}
+      .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')
+      .and_return { controller.render :nothing => true }
 
       get :download, {:id => software.to_param}, valid_session
     end
@@ -103,14 +103,14 @@ describe SoftwaresController do
       it "assigns a newly created but unsaved software as @software" do
         # Trigger the behavior that occurs when invalid params are submitted
         Software.any_instance.stub(:save).and_return(false)
-        post :create, {:software => { "name" => "invalid value" }}, valid_session
+        post :create, {:software => {"name" => "invalid value"}}, valid_session
         assigns(:software).should be_a_new(Software)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Software.any_instance.stub(:save).and_return(false)
-        post :create, {:software => { "name" => "invalid value" }}, valid_session
+        post :create, {:software => {"name" => "invalid value"}}, valid_session
         response.should render_template("new")
       end
     end
@@ -124,8 +124,8 @@ describe SoftwaresController do
         # specifies that the Software created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Software.any_instance.should_receive(:update).with({ "name" => "MyString" })
-        put :update, {:id => software.to_param, :software => { "name" => "MyString" }}, valid_session
+        Software.any_instance.should_receive(:update).with({"name" => "MyString"})
+        put :update, {:id => software.to_param, :software => {"name" => "MyString"}}, valid_session
       end
 
       it "assigns the requested software as @software" do
@@ -146,7 +146,7 @@ describe SoftwaresController do
         software = Software.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Software.any_instance.stub(:save).and_return(false)
-        put :update, {:id => software.to_param, :software => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
         assigns(:software).should eq(software)
       end
 
@@ -154,7 +154,7 @@ describe SoftwaresController do
         software = Software.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Software.any_instance.stub(:save).and_return(false)
-        put :update, {:id => software.to_param, :software => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
         response.should render_template("edit")
       end
     end

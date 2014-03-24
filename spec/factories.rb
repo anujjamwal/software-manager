@@ -16,7 +16,7 @@ FactoryGirl.define do
     path '/home/path/office'
     operating_system
     state 'available'
-    download_policy nil
+    download_policy {DownloadPolicy.first}
     download_count 0
   end
 
