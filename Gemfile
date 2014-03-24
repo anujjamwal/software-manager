@@ -6,6 +6,9 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+gem 'omniauth'
+gem 'omniauth-saml'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -49,4 +52,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'pry'
 end

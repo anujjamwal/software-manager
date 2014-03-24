@@ -1,4 +1,6 @@
 SoftwareManager::Application.routes.draw do
+  post "auth/:provider/callback" => "auth#create"
+
   resources :allocations
 
   resources :licenses

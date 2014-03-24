@@ -28,7 +28,9 @@ describe LicensesController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # LicensesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com')}
+  let(:valid_session) { {'user_id' => auth_user.id} }
+
 
   describe "GET index" do
     it "assigns all licenses as @licenses" do

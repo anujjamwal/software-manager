@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  include AuthHelper
   protect_from_forgery with: :exception
 
-  def current_user
+  before_filter :mock_login
+  append_before_filter :protected!
 
+  private
+
+  def mock_login
+    session['user_id'] = User.first().id if Rails.env.development?
   end
 end

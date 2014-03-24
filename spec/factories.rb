@@ -29,9 +29,14 @@ FactoryGirl.define do
     cost 2000
   end
 
+  sequence :uid do |n|
+    "user#{n}"
+  end
+
   factory :user do
     name 'Clark Kent'
     email 'clark.kent@avengers.com'
+    uid
   end
 
   factory :allocation do
