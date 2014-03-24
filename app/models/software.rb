@@ -16,7 +16,7 @@ class Software < ActiveRecord::Base
 
   private
   def defaults
-    self.state = :approved
+    self.state = self.state || :approved
     self.download_count = 0
   end
 
