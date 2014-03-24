@@ -18,9 +18,9 @@
         <td><%= allocation.license_id %></td>
         <td><%= allocation.user_id %></td>
         <td><%= allocation.project_code %></td>
-        <td><%= link_to 'Show', allocation %></td>
-        <td><%= link_to 'Edit', edit_allocation_path(allocation) %></td>
-        <td><%= link_to 'Destroy', allocation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', license_allocation_path(@license, allocation) %></td>
+        <td><%= link_to 'Edit', edit_license_allocation_path(@license, allocation) %></td>
+        <td><%= link_to 'Destroy', license_allocation_path(@license, allocation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Allocation', new_allocation_path %>
+<%= link_to 'New Allocation', new_license_allocation_path(@license) %>

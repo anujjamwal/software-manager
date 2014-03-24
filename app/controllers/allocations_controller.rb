@@ -1,10 +1,11 @@
 class AllocationsController < ApplicationController
+  before_action :set_license
   before_action :set_allocation, only: [:show, :edit, :update, :destroy]
 
   # GET /allocations
   # GET /allocations.json
   def index
-    @allocations = Allocation.all
+    @allocations = @license.allocations.all
   end
 
   # GET /allocations/1
@@ -14,7 +15,7 @@ class AllocationsController < ApplicationController
 
   # GET /allocations/new
   def new
-    @allocation = Allocation.new
+    @allocation = @license.allocations.build
   end
 
   # GET /allocations/1/edit
@@ -24,11 +25,11 @@ class AllocationsController < ApplicationController
   # POST /allocations
   # POST /allocations.json
   def create
-    @allocation = Allocation.new(allocation_params)
+    @allocation = @license.allocations.new(allocation_params)
 
     respond_to do |format|
       if @allocation.save
-        format.html { redirect_to @allocation, notice: 'Allocation was successfully created.' }
+        format.html { redirect_to license_allocation_path(@license, @allocation), notice: 'Allocation was successfully created.' }
         format.json { render action: 'show', status: :created, location: @allocation }
       else
         format.html { render action: 'new' }
@@ -42,7 +43,7 @@ class AllocationsController < ApplicationController
   def update
     respond_to do |format|
       if @allocation.update(allocation_params)
-        format.html { redirect_to @allocation, notice: 'Allocation was successfully updated.' }
+        format.html { redirect_to license_allocation_path(@license, @allocation), notice: 'Allocation was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,7 +57,7 @@ class AllocationsController < ApplicationController
   def destroy
     @allocation.destroy
     respond_to do |format|
-      format.html { redirect_to allocations_url }
+      format.html { redirect_to license_allocations_url(@license) }
       format.json { head :no_content }
     end
   end
@@ -64,7 +65,12 @@ class AllocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_allocation
-      @allocation = Allocation.find(params[:id])
+      @allocation = @license.allocations.find(params[:id])
+    end
+
+ # Use callbacks to share common setup or constraints between actions.
+    def set_license
+      @license = License.find(params[:license_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

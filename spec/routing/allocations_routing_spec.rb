@@ -4,31 +4,31 @@ describe AllocationsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/allocations").should route_to("allocations#index")
+      get("/licenses/1/allocations").should route_to("allocations#index", license_id: '1')
     end
 
     it "routes to #new" do
-      get("/allocations/new").should route_to("allocations#new")
+      get("/licenses/1/allocations/new").should route_to("allocations#new", license_id: '1')
     end
 
     it "routes to #show" do
-      get("/allocations/1").should route_to("allocations#show", :id => "1")
+      get("/licenses/1/allocations/1").should route_to("allocations#show", :id => "1", license_id: '1')
     end
 
     it "routes to #edit" do
-      get("/allocations/1/edit").should route_to("allocations#edit", :id => "1")
+      get("/licenses/1/allocations/1/edit").should route_to("allocations#edit", :id => "1", license_id: '1')
     end
 
     it "routes to #create" do
-      post("/allocations").should route_to("allocations#create")
+      post("/licenses/1/allocations").should route_to("allocations#create", license_id: '1')
     end
 
     it "routes to #update" do
-      put("/allocations/1").should route_to("allocations#update", :id => "1")
+      put("/licenses/1/allocations/1").should route_to("allocations#update", :id => "1", license_id: '1')
     end
 
     it "routes to #destroy" do
-      delete("/allocations/1").should route_to("allocations#destroy", :id => "1")
+      delete("/licenses/1/allocations/1").should route_to("allocations#destroy", :id => "1", license_id: '1')
     end
 
   end

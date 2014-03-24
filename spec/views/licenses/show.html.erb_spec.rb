@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "licenses/show" do
   before(:each) do
+    @software = FactoryGirl.create(:software)
     @license = assign(:license, stub_model(License,
-      :software_id => 1,
+      :software_id => @software.id,
       :license_user => "License User",
       :license => "MyText",
       :user_count => 2,

@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @license %> |
-<%= link_to 'Back', licenses_path %>
+<%= link_to 'Show', software_license_path(@software, @license) %> |
+<%= link_to 'Back', software_licenses_path(@software) %>

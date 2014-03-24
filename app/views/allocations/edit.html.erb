@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @allocation %> |
-<%= link_to 'Back', allocations_path %>
+<%= link_to 'Show', license_allocation_path(@license, @allocation) %> |
+<%= link_to 'Back', license_allocations_path(@license) %>

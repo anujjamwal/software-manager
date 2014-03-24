@@ -1,9 +1,9 @@
 SoftwareManager::Application.routes.draw do
   post "auth/:provider/callback" => "auth#create"
 
-  resources :allocations
-
-  resources :licenses
+  resources :licenses, only: [] do
+    resources :allocations
+  end
 
   resources :operating_systems
 
@@ -11,6 +11,7 @@ SoftwareManager::Application.routes.draw do
     member do
       get 'download'
     end
+    resources :licenses
   end
 
   resources :users

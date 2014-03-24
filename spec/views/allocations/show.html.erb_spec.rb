@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "allocations/show" do
   before(:each) do
+    @license = FactoryGirl.create(:license)
     @allocation = assign(:allocation, stub_model(Allocation,
-      :license_id => 1,
+      :license_id => @license.id,
       :user_id => 2,
       :project_code => "Project Code"
     ))
