@@ -6,7 +6,8 @@ describe "softwares/show" do
       :name => "Name",
       :path => "Path",
       :operating_system_id => 1,
-      :state => "State"
+      :state => "State",
+      :download_policy_id => 1
     ))
   end
 

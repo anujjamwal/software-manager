@@ -29,7 +29,7 @@ describe SoftwaresController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SoftwaresController. Be sure to keep this updated too.
-  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com')}
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com', role: UserRole.first)}
   let(:valid_session) { {'user_id' => auth_user.id} }
 
 

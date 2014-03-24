@@ -4,7 +4,11 @@ class SoftwaresController < ApplicationController
   # GET /softwares
   # GET /softwares.json
   def index
-    @softwares = Software.all
+    if current_user.role.can?(:software_view_unapproved)
+      @softwares = Software.all
+    else
+      @softwares = Software.approved
+    end
   end
 
   # GET /softwares/1

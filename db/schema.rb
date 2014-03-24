@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324100835) do
+ActiveRecord::Schema.define(version: 20140324110731) do
 
   create_table "allocations", force: true do |t|
     t.integer  "license_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140324100835) do
     t.text     "license",       limit: 4096
     t.integer  "user_count"
     t.date     "purchase_date"
+    t.date     "valid_upto"
     t.integer  "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,6 +41,12 @@ ActiveRecord::Schema.define(version: 20140324100835) do
 
   create_table "operating_systems", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,6 +68,7 @@ ActiveRecord::Schema.define(version: 20140324100835) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uid"
+    t.integer  "role_id"
   end
 
 end

@@ -1,4 +1,7 @@
 class Software < ActiveRecord::Base
+  STATE = [:approved, :unapproved]
+  include Stateful
+
   belongs_to :operating_system
   belongs_to :download_policy
   has_many :licenses

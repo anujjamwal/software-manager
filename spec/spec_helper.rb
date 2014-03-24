@@ -45,5 +45,8 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.clean
+    [Role, AdminRole, UserRole, DownloadPolicy, LicensedDownloadPolicy].each do |klass|
+      klass.create
+    end
   end
 end

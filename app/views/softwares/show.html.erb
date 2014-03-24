@@ -20,6 +20,10 @@
   <%= @software.state %>
 </p>
 
-<%= link_to 'Download', download_software_url(@software) %> |
+<% if @software.download_policy.permit?(@software, current_user) %>
+    <%= link_to 'Download', download_software_url(@software) %> |
+<% else %>
+    <%= link_to 'Request Access', '' %> |
+<% end %>
 <%= link_to 'Edit', edit_software_path(@software) %> |
 <%= link_to 'Back', softwares_path %>

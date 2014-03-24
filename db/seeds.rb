@@ -6,4 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-DownloadPolicy.create
+[
+    Role,
+    AdminRole,
+    UserRole,
+    DownloadPolicy,
+    LicensedDownloadPolicy
+].each do |klass|
+  klass.create
+end
+
+User.create(name: 'Anuj Jamwal', email: 'anujjam@thoughtworks.com', uid: 'anujjam', role: AdminRole.last)
+User.create(name: 'Sync User', email: 'syncuser@thoughtworks.com', uid: '', role: AdminRole.last)

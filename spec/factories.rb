@@ -37,6 +37,7 @@ FactoryGirl.define do
     name 'Clark Kent'
     email 'clark.kent@avengers.com'
     uid
+    role {UserRole.last}
   end
 
   factory :allocation do
