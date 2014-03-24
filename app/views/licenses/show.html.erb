@@ -30,5 +30,10 @@
   <%= @license.cost %>
 </p>
 
+<p>
+  <strong>Allocated Count:</strong>
+  <%= @license.used_count %>
+</p>
+
 <%= link_to 'Edit', edit_license_path(@license) %> |
 <%= link_to 'Back', licenses_path %>

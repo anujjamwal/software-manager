@@ -6,4 +6,12 @@ class License < ActiveRecord::Base
   def good?
     true
   end
+
+  def used_count
+    self.allocations.count()
+  end
+
+  def available?
+    self.used_count < self.user_count
+  end
 end
