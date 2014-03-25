@@ -19,6 +19,10 @@ module Authenticable
   end
 
   def authorized!
-    redirect_to(unauthorized_path) unless current_user.role.can?(params[:controller], params[:action])
+    redirect_to(unauthorized_path) unless current_user.can?(params[:controller], params[:action])
+  end
+
+  def can?(permission)
+    current_user.can?(params[:controller], permission)
   end
 end

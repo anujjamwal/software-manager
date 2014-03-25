@@ -6,7 +6,11 @@ class SoftwaresController < ApplicationController
   # GET /softwares
   # GET /softwares.json
   def index
-    @softwares = Software.all
+    if can?(:view_unapproved)
+      @softwares = Software.search(params[:q])
+    else
+      @softwares = Software.approved.search(params[:q])
+    end
   end
 
   # GET /softwares/1
@@ -56,7 +60,8 @@ class SoftwaresController < ApplicationController
   # DELETE /softwares/1
   # DELETE /softwares/1.json
   def destroy
-    @software.destroy
+    @software.state = :unapproved
+    @software.save
     respond_to do |format|
       format.html { redirect_to softwares_url }
       format.json { head :no_content }
@@ -64,7 +69,8 @@ class SoftwaresController < ApplicationController
   end
 
   def download
-    if @software.download_policy.permit?(@software, current_user)
+    user_permission = @software.approved? || can?(:download_unapproved)
+    if user_permission && @software.download_policy.permit?(@software, current_user)
       send_file @software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream'
       @software.increment(:download_count)
     else
@@ -80,6 +86,6 @@ class SoftwaresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def software_params
-      params.require(:software).permit(:name, :path, :operating_system_id, :download_policy_id)
+      params.require(:software).permit(:name, :path, :operating_system_id, :download_policy_id, :state)
     end
 end

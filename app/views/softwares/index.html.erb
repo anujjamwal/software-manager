@@ -1,3 +1,8 @@
+<%= form_tag(softwares_path, method: :get) do %>
+    <%= search_field_tag :q %>
+    <%= submit_tag 'Search' %>
+<% end %>
+
 <h1>Listing softwares</h1>
 
 <table>

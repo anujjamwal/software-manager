@@ -19,7 +19,7 @@ namespace :files do
         software = Software.create(
           operating_system: os,
           name: file_basename,
-          path: File.absolute_path(file),
+          path: File.absolute_path(file, dir),
           download_policy: default_download_policy,
           state: :unapproved
         )

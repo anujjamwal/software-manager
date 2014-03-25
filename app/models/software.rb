@@ -14,6 +14,8 @@ class Software < ActiveRecord::Base
   after_initialize :defaults, unless: :persisted?
   before_create :set_default_download_policy
 
+  scope :search, ->(key) { where('LOWER(name) like ?', "%#{key.to_s.downcase}%") }
+
   private
   def defaults
     self.state = self.state || :approved

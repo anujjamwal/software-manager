@@ -167,11 +167,10 @@ describe SoftwaresController do
     end
 
     describe "DELETE destroy" do
-      it "destroys the requested software" do
+      it "set the software as unapproved" do
         software = Software.create! valid_attributes
-        expect {
-          delete :destroy, {:id => software.to_param}, valid_session
-        }.to change(Software, :count).by(-1)
+        delete :destroy, {:id => software.to_param}, valid_session
+        expect(software.reload.state).to eq('unapproved')
       end
 
       it "redirects to the softwares list" do
