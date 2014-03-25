@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324110731) do
+ActiveRecord::Schema.define(version: 20140325020723) do
 
   create_table "allocations", force: true do |t|
     t.integer  "license_id"
@@ -46,9 +46,10 @@ ActiveRecord::Schema.define(version: 20140324110731) do
   end
 
   create_table "roles", force: true do |t|
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.text     "permissions", limit: 2048
   end
 
   create_table "softwares", force: true do |t|

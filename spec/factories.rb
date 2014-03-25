@@ -33,11 +33,20 @@ FactoryGirl.define do
     "user#{n}"
   end
 
+  sequence :name do |n|
+    "Role#{n}"
+  end
+
+  factory :role do
+    name
+    permissions Hash.new(name: [])
+  end
+
   factory :user do
     name 'Clark Kent'
     email 'clark.kent@avengers.com'
     uid
-    role {UserRole.last}
+    role
   end
 
   factory :allocation do

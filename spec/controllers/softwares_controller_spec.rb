@@ -30,149 +30,155 @@ describe SoftwaresController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SoftwaresController. Be sure to keep this updated too.
-  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com', role: UserRole.first) }
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com') }
   let(:valid_session) { {'user_id' => auth_user.id} }
 
+  it_behaves_like 'authenticable'
 
-  describe "GET index" do
-    it "assigns all softwares as @softwares" do
-      software = Software.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:softwares).should eq([software])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested software as @software" do
-      software = Software.create! valid_attributes
-      get :show, {:id => software.to_param}, valid_session
-      assigns(:software).should eq(software)
-    end
-  end
-
-  describe "GET download" do
-    it "downloads the file at path in @software" do
-      software = Software.create! valid_attributes
-      software.download_policy = download_policy
-      software.save!
-
-      controller.should_receive(:send_file)
-      .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')
-      .and_return { controller.render :nothing => true }
-
-      get :download, {:id => software.to_param}, valid_session
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new software as @software" do
-      get :new, {}, valid_session
-      assigns(:software).should be_a_new(Software)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested software as @software" do
-      software = Software.create! valid_attributes
-      get :edit, {:id => software.to_param}, valid_session
-      assigns(:software).should eq(software)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Software" do
-        expect {
-          post :create, {:software => valid_attributes}, valid_session
-        }.to change(Software, :count).by(1)
-      end
-
-      it "assigns a newly created software as @software" do
-        post :create, {:software => valid_attributes}, valid_session
-        assigns(:software).should be_a(Software)
-        assigns(:software).should be_persisted
-      end
-
-      it "redirects to the created software" do
-        post :create, {:software => valid_attributes}, valid_session
-        response.should redirect_to(Software.last)
-      end
+  describe 'actions' do
+    before :each do
+      controller.should_receive(:authorized!)
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved software as @software" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Software.any_instance.stub(:save).and_return(false)
-        post :create, {:software => {"name" => "invalid value"}}, valid_session
-        assigns(:software).should be_a_new(Software)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Software.any_instance.stub(:save).and_return(false)
-        post :create, {:software => {"name" => "invalid value"}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested software" do
+    describe "GET index" do
+      it "assigns all softwares as @softwares" do
         software = Software.create! valid_attributes
-        # Assuming there are no other softwares in the database, this
-        # specifies that the Software created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Software.any_instance.should_receive(:update).with({"name" => "MyString"})
-        put :update, {:id => software.to_param, :software => {"name" => "MyString"}}, valid_session
+        get :index, {}, valid_session
+        assigns(:softwares).should eq([software])
       end
+    end
 
+    describe "GET show" do
       it "assigns the requested software as @software" do
         software = Software.create! valid_attributes
-        put :update, {:id => software.to_param, :software => valid_attributes}, valid_session
+        get :show, {:id => software.to_param}, valid_session
         assigns(:software).should eq(software)
-      end
-
-      it "redirects to the software" do
-        software = Software.create! valid_attributes
-        put :update, {:id => software.to_param, :software => valid_attributes}, valid_session
-        response.should redirect_to(software)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the software as @software" do
+    describe "GET download" do
+      it "downloads the file at path in @software" do
         software = Software.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Software.any_instance.stub(:save).and_return(false)
-        put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
-        assigns(:software).should eq(software)
-      end
+        software.download_policy = download_policy
+        software.save!
 
-      it "re-renders the 'edit' template" do
-        software = Software.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Software.any_instance.stub(:save).and_return(false)
-        put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
-        response.should render_template("edit")
+        controller.should_receive(:send_file)
+        .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')
+        .and_return { controller.render :nothing => true }
+
+        get :download, {:id => software.to_param}, valid_session
       end
     end
-  end
 
-  describe "DELETE destroy" do
-    it "destroys the requested software" do
-      software = Software.create! valid_attributes
-      expect {
+    describe "GET new" do
+      it "assigns a new software as @software" do
+        get :new, {}, valid_session
+        assigns(:software).should be_a_new(Software)
+      end
+    end
+
+    describe "GET edit" do
+      it "assigns the requested software as @software" do
+        software = Software.create! valid_attributes
+        get :edit, {:id => software.to_param}, valid_session
+        assigns(:software).should eq(software)
+      end
+    end
+
+    describe "POST create" do
+      describe "with valid params" do
+        it "creates a new Software" do
+          expect {
+            post :create, {:software => valid_attributes}, valid_session
+          }.to change(Software, :count).by(1)
+        end
+
+        it "assigns a newly created software as @software" do
+          post :create, {:software => valid_attributes}, valid_session
+          assigns(:software).should be_a(Software)
+          assigns(:software).should be_persisted
+        end
+
+        it "redirects to the created software" do
+          post :create, {:software => valid_attributes}, valid_session
+          response.should redirect_to(Software.last)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved software as @software" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Software.any_instance.stub(:save).and_return(false)
+          post :create, {:software => {"name" => "invalid value"}}, valid_session
+          assigns(:software).should be_a_new(Software)
+        end
+
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Software.any_instance.stub(:save).and_return(false)
+          post :create, {:software => {"name" => "invalid value"}}, valid_session
+          response.should render_template("new")
+        end
+      end
+    end
+
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested software" do
+          software = Software.create! valid_attributes
+          # Assuming there are no other softwares in the database, this
+          # specifies that the Software created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Software.any_instance.should_receive(:update).with({"name" => "MyString"})
+          put :update, {:id => software.to_param, :software => {"name" => "MyString"}}, valid_session
+        end
+
+        it "assigns the requested software as @software" do
+          software = Software.create! valid_attributes
+          put :update, {:id => software.to_param, :software => valid_attributes}, valid_session
+          assigns(:software).should eq(software)
+        end
+
+        it "redirects to the software" do
+          software = Software.create! valid_attributes
+          put :update, {:id => software.to_param, :software => valid_attributes}, valid_session
+          response.should redirect_to(software)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the software as @software" do
+          software = Software.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Software.any_instance.stub(:save).and_return(false)
+          put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
+          assigns(:software).should eq(software)
+        end
+
+        it "re-renders the 'edit' template" do
+          software = Software.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Software.any_instance.stub(:save).and_return(false)
+          put :update, {:id => software.to_param, :software => {"name" => "invalid value"}}, valid_session
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "destroys the requested software" do
+        software = Software.create! valid_attributes
+        expect {
+          delete :destroy, {:id => software.to_param}, valid_session
+        }.to change(Software, :count).by(-1)
+      end
+
+      it "redirects to the softwares list" do
+        software = Software.create! valid_attributes
         delete :destroy, {:id => software.to_param}, valid_session
-      }.to change(Software, :count).by(-1)
-    end
-
-    it "redirects to the softwares list" do
-      software = Software.create! valid_attributes
-      delete :destroy, {:id => software.to_param}, valid_session
-      response.should redirect_to(softwares_url)
+        response.should redirect_to(softwares_url)
+      end
     end
   end
-
 end

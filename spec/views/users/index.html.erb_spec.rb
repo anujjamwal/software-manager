@@ -2,18 +2,19 @@ require 'spec_helper'
 
 describe "users/index" do
   before(:each) do
+    role = FactoryGirl.create(:role, name: 'UserRole')
     assign(:users, [
       stub_model(User,
         :name => "Name",
         :email => "Email",
         :uid => "userid",
-        :role => UserRole.last
+        :role => role
       ),
       stub_model(User,
         :name => "Name",
         :email => "Email",
         :uid => "userid",
-        :role => UserRole.last
+        :role => role
       )
     ])
   end

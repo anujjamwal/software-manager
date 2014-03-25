@@ -26,139 +26,146 @@ describe AllocationsController do
   let(:license) { FactoryGirl.create(:license) }
   let(:user) { FactoryGirl.create(:user) }
   let(:license) { FactoryGirl.create(:license) }
-  let(:valid_attributes) { { "license_id" => license.id, 'user_id' => user.id } }
+  let(:valid_attributes) { {"license_id" => license.id, 'user_id' => user.id} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AllocationsController. Be sure to keep this updated too.
-  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com')}
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com') }
   let(:valid_session) { {'user_id' => auth_user.id} }
 
-  describe "GET index" do
-    it "assigns all allocations as @allocations" do
-      allocation = Allocation.create! valid_attributes
-      get :index, {license_id: license.id}, valid_session
-      assigns(:allocations).should eq([allocation])
-    end
-  end
+  it_behaves_like 'authenticable'
 
-  describe "GET show" do
-    it "assigns the requested allocation as @allocation" do
-      allocation = Allocation.create! valid_attributes
-      get :show, {:id => allocation.to_param, license_id: license.id}, valid_session
-      assigns(:allocation).should eq(allocation)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new allocation as @allocation" do
-      get :new, {license_id: license.id}, valid_session
-      assigns(:allocation).should be_a_new(Allocation)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested allocation as @allocation" do
-      allocation = Allocation.create! valid_attributes
-      get :edit, {:id => allocation.to_param, license_id: license.id}, valid_session
-      assigns(:allocation).should eq(allocation)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Allocation" do
-        expect {
-          post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
-        }.to change(Allocation, :count).by(1)
-      end
-
-      it "assigns a newly created allocation as @allocation" do
-        post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
-        assigns(:allocation).should be_a(Allocation)
-        assigns(:allocation).should be_persisted
-      end
-
-      it "redirects to the created allocation" do
-        post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
-        response.should redirect_to(license_allocation_path(license, Allocation.last))
-      end
+  describe 'actions' do
+    before :each do
+      controller.should_receive(:authorized!)
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved allocation as @allocation" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Allocation.any_instance.stub(:save).and_return(false)
-        post :create, {:allocation => { "license_id" => "invalid value" }, license_id: license.id}, valid_session
-        assigns(:allocation).should be_a_new(Allocation)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Allocation.any_instance.stub(:save).and_return(false)
-        post :create, {:allocation => { "license_id" => "invalid value" }, license_id: license.id}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested allocation" do
+    describe "GET index" do
+      it "assigns all allocations as @allocations" do
         allocation = Allocation.create! valid_attributes
-        # Assuming there are no other allocations in the database, this
-        # specifies that the Allocation created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Allocation.any_instance.should_receive(:update).with({ "license_id" => "1" })
-        put :update, {:id => allocation.to_param, :allocation => { "license_id" => "1" }, license_id: license.id}, valid_session
+        get :index, {license_id: license.id}, valid_session
+        assigns(:allocations).should eq([allocation])
       end
+    end
 
+    describe "GET show" do
       it "assigns the requested allocation as @allocation" do
         allocation = Allocation.create! valid_attributes
-        put :update, {:id => allocation.to_param, :allocation => valid_attributes, license_id: license.id}, valid_session
+        get :show, {:id => allocation.to_param, license_id: license.id}, valid_session
         assigns(:allocation).should eq(allocation)
-      end
-
-      it "redirects to the allocation" do
-        allocation = Allocation.create! valid_attributes
-        put :update, {:id => allocation.to_param, :allocation => valid_attributes, license_id: license.id}, valid_session
-        response.should redirect_to(license_allocation_url(license, allocation))
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the allocation as @allocation" do
-        allocation = Allocation.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Allocation.any_instance.stub(:save).and_return(false)
-        put :update, {:id => allocation.to_param, :allocation => { "license_id" => "invalid value" }, license_id: license.id}, valid_session
-        assigns(:allocation).should eq(allocation)
-      end
-
-      it "re-renders the 'edit' template" do
-        allocation = Allocation.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Allocation.any_instance.stub(:save).and_return(false)
-        put :update, {:id => allocation.to_param, :allocation => { "license_id" => "invalid value" }, license_id: license.id}, valid_session
-        response.should render_template("edit")
+    describe "GET new" do
+      it "assigns a new allocation as @allocation" do
+        get :new, {license_id: license.id}, valid_session
+        assigns(:allocation).should be_a_new(Allocation)
       end
     end
-  end
 
-  describe "DELETE destroy" do
-    it "destroys the requested allocation" do
-      allocation = Allocation.create! valid_attributes
-      expect {
+    describe "GET edit" do
+      it "assigns the requested allocation as @allocation" do
+        allocation = Allocation.create! valid_attributes
+        get :edit, {:id => allocation.to_param, license_id: license.id}, valid_session
+        assigns(:allocation).should eq(allocation)
+      end
+    end
+
+    describe "POST create" do
+      describe "with valid params" do
+        it "creates a new Allocation" do
+          expect {
+            post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
+          }.to change(Allocation, :count).by(1)
+        end
+
+        it "assigns a newly created allocation as @allocation" do
+          post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
+          assigns(:allocation).should be_a(Allocation)
+          assigns(:allocation).should be_persisted
+        end
+
+        it "redirects to the created allocation" do
+          post :create, {:allocation => valid_attributes, license_id: license.id}, valid_session
+          response.should redirect_to(license_allocation_path(license, Allocation.last))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved allocation as @allocation" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Allocation.any_instance.stub(:save).and_return(false)
+          post :create, {:allocation => {"license_id" => "invalid value"}, license_id: license.id}, valid_session
+          assigns(:allocation).should be_a_new(Allocation)
+        end
+
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Allocation.any_instance.stub(:save).and_return(false)
+          post :create, {:allocation => {"license_id" => "invalid value"}, license_id: license.id}, valid_session
+          response.should render_template("new")
+        end
+      end
+    end
+
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested allocation" do
+          allocation = Allocation.create! valid_attributes
+          # Assuming there are no other allocations in the database, this
+          # specifies that the Allocation created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Allocation.any_instance.should_receive(:update).with({"license_id" => "1"})
+          put :update, {:id => allocation.to_param, :allocation => {"license_id" => "1"}, license_id: license.id}, valid_session
+        end
+
+        it "assigns the requested allocation as @allocation" do
+          allocation = Allocation.create! valid_attributes
+          put :update, {:id => allocation.to_param, :allocation => valid_attributes, license_id: license.id}, valid_session
+          assigns(:allocation).should eq(allocation)
+        end
+
+        it "redirects to the allocation" do
+          allocation = Allocation.create! valid_attributes
+          put :update, {:id => allocation.to_param, :allocation => valid_attributes, license_id: license.id}, valid_session
+          response.should redirect_to(license_allocation_url(license, allocation))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the allocation as @allocation" do
+          allocation = Allocation.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Allocation.any_instance.stub(:save).and_return(false)
+          put :update, {:id => allocation.to_param, :allocation => {"license_id" => "invalid value"}, license_id: license.id}, valid_session
+          assigns(:allocation).should eq(allocation)
+        end
+
+        it "re-renders the 'edit' template" do
+          allocation = Allocation.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Allocation.any_instance.stub(:save).and_return(false)
+          put :update, {:id => allocation.to_param, :allocation => {"license_id" => "invalid value"}, license_id: license.id}, valid_session
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "destroys the requested allocation" do
+        allocation = Allocation.create! valid_attributes
+        expect {
+          delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
+        }.to change(Allocation, :count).by(-1)
+      end
+
+      it "redirects to the allocations list" do
+        allocation = Allocation.create! valid_attributes
         delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
-      }.to change(Allocation, :count).by(-1)
-    end
-
-    it "redirects to the allocations list" do
-      allocation = Allocation.create! valid_attributes
-      delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
-      response.should redirect_to(license_allocations_url(license))
+        response.should redirect_to(license_allocations_url(license))
+      end
     end
   end
-
 end

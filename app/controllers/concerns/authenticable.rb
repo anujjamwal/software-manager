@@ -1,4 +1,11 @@
-module AuthHelper
+module Authenticable
+  extend ActiveSupport::Concern
+
+  included do
+    append_before_filter :protected!
+    append_before_filter :authorized!
+  end
+
   def authenticated?
     session['user_id'].present?
   end
@@ -12,6 +19,6 @@ module AuthHelper
   end
 
   def authorized!
-    redirect_to(:unauthorized) unless current_user.role.can?(params[:controller], params[:action])
+    redirect_to(unauthorized_path) unless current_user.role.can?(params[:controller], params[:action])
   end
 end

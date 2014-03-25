@@ -1,4 +1,6 @@
 class AllocationsController < ApplicationController
+  include Authenticable
+
   before_action :set_license
   before_action :set_allocation, only: [:show, :edit, :update, :destroy]
 

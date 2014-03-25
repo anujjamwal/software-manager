@@ -1,4 +1,6 @@
 class OperatingSystemsController < ApplicationController
+  include Authenticable
+
   before_action :set_operating_system, only: [:show, :edit, :update, :destroy]
 
   # GET /operating_systems

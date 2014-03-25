@@ -16,10 +16,11 @@ describe User do
   describe :ensure do
     it 'should fetch or create user for uid' do
       uid = '12233'
+      role = FactoryGirl.create(:role)
       user = User.ensure({'uid' => uid})
 
       expect(user).to_not be_nil
-      expect(user.role.class).to be(UserRole)
+      expect(user.role.class).to be(Role)
     end
 
     it 'should fetch or create user for uid' do

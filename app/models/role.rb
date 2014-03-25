@@ -1,13 +1,10 @@
 class Role < ActiveRecord::Base
-  validates :type, uniqueness: true
+  validates :name, uniqueness: true
 
-  PERMISSIONS = []
+  serialize :permissions
 
-  def can?(action)
-    PERMISSIONS == :all || PERMISSIONS.include?(action)
-  end
-
-  def name
-    self.class.name
+  def can?(controller, action)
+    permissions = self.permissions.fetch(controller.to_sym, [])
+    permissions.include?(:all) || permissions.include?(action.to_sym)
   end
 end

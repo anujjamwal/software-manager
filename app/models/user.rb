@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :role, presence: true
 
   def self.ensure(auth)
-    user = User.where(uid: auth['uid']).first_or_create(role: UserRole.first)
+    user = User.where(uid: auth['uid']).first_or_create(role: Role.first)
     user
   end
 

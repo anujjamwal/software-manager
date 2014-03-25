@@ -1,14 +1,12 @@
 class SoftwaresController < ApplicationController
+  include Authenticable
+
   before_action :set_software, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /softwares
   # GET /softwares.json
   def index
-    if current_user.role.can?(:software_view_unapproved)
-      @softwares = Software.all
-    else
-      @softwares = Software.approved
-    end
+    @softwares = Software.all
   end
 
   # GET /softwares/1

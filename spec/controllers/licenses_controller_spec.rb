@@ -24,140 +24,146 @@ describe LicensesController do
   # License. As you add validations to License, be sure to
   # adjust the attributes here as well.
   let(:software) { FactoryGirl.create(:software) }
-  let(:valid_attributes) { { "software_id" => software.id } }
+  let(:valid_attributes) { {"software_id" => software.id} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # LicensesController. Be sure to keep this updated too.
-  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com')}
+  let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com') }
   let(:valid_session) { {'user_id' => auth_user.id} }
 
+  it_behaves_like 'authenticable'
 
-  describe "GET index" do
-    it "assigns all licenses as @licenses" do
-      license = License.create! valid_attributes
-      get :index, {software_id: software.id}, valid_session
-      assigns(:licenses).should eq([license])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested license as @license" do
-      license = License.create! valid_attributes
-      get :show, {:id => license.to_param, software_id: software.id}, valid_session
-      assigns(:license).should eq(license)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new license as @license" do
-      get :new, {software_id: software.id}, valid_session
-      assigns(:license).should be_a_new(License)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested license as @license" do
-      license = License.create! valid_attributes
-      get :edit, {:id => license.to_param, software_id: software.id}, valid_session
-      assigns(:license).should eq(license)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new License" do
-        expect {
-          post :create, {:license => valid_attributes, software_id: software.id}, valid_session
-        }.to change(License, :count).by(1)
-      end
-
-      it "assigns a newly created license as @license" do
-        post :create, {:license => valid_attributes, software_id: software.id}, valid_session
-        assigns(:license).should be_a(License)
-        assigns(:license).should be_persisted
-      end
-
-      it "redirects to the created license" do
-        post :create, {:license => valid_attributes, software_id: software.id}, valid_session
-        response.should redirect_to(software_license_url(software, License.last))
-      end
+  describe 'actions' do
+    before :each do
+      controller.should_receive(:authorized!)
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved license as @license" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        License.any_instance.stub(:save).and_return(false)
-        post :create, {:license => { "software_id" => "invalid value" }, software_id: software.id}, valid_session
-        assigns(:license).should be_a_new(License)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        License.any_instance.stub(:save).and_return(false)
-        post :create, {:license => { "software_id" => "invalid value" }, software_id: software.id}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested license" do
+    describe "GET index" do
+      it "assigns all licenses as @licenses" do
         license = License.create! valid_attributes
-        # Assuming there are no other licenses in the database, this
-        # specifies that the License created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        License.any_instance.should_receive(:update).with({ "software_id" => "1" })
-        put :update, {:id => license.to_param, :license => { "software_id" => "1" }, software_id: software.id}, valid_session
+        get :index, {software_id: software.id}, valid_session
+        assigns(:licenses).should eq([license])
       end
+    end
 
+    describe "GET show" do
       it "assigns the requested license as @license" do
         license = License.create! valid_attributes
-        put :update, {:id => license.to_param, :license => valid_attributes, software_id: software.id}, valid_session
+        get :show, {:id => license.to_param, software_id: software.id}, valid_session
         assigns(:license).should eq(license)
-      end
-
-      it "redirects to the license" do
-        license = License.create! valid_attributes
-        put :update, {:id => license.to_param, :license => valid_attributes, software_id: software.id}, valid_session
-        response.should redirect_to(software_license_url(software, license))
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the license as @license" do
-        license = License.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        License.any_instance.stub(:save).and_return(false)
-        put :update, {:id => license.to_param, :license => { "software_id" => "invalid value" }, software_id: software.id}, valid_session
-        assigns(:license).should eq(license)
-      end
-
-      it "re-renders the 'edit' template" do
-        license = License.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        License.any_instance.stub(:save).and_return(false)
-        put :update, {:id => license.to_param, :license => { "software_id" => "invalid value" }, software_id: software.id}, valid_session
-        response.should render_template("edit")
+    describe "GET new" do
+      it "assigns a new license as @license" do
+        get :new, {software_id: software.id}, valid_session
+        assigns(:license).should be_a_new(License)
       end
     end
-  end
 
-  describe "DELETE destroy" do
-    it "destroys the requested license" do
-      license = License.create! valid_attributes
-      expect {
+    describe "GET edit" do
+      it "assigns the requested license as @license" do
+        license = License.create! valid_attributes
+        get :edit, {:id => license.to_param, software_id: software.id}, valid_session
+        assigns(:license).should eq(license)
+      end
+    end
+
+    describe "POST create" do
+      describe "with valid params" do
+        it "creates a new License" do
+          expect {
+            post :create, {:license => valid_attributes, software_id: software.id}, valid_session
+          }.to change(License, :count).by(1)
+        end
+
+        it "assigns a newly created license as @license" do
+          post :create, {:license => valid_attributes, software_id: software.id}, valid_session
+          assigns(:license).should be_a(License)
+          assigns(:license).should be_persisted
+        end
+
+        it "redirects to the created license" do
+          post :create, {:license => valid_attributes, software_id: software.id}, valid_session
+          response.should redirect_to(software_license_url(software, License.last))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved license as @license" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          License.any_instance.stub(:save).and_return(false)
+          post :create, {:license => {"software_id" => "invalid value"}, software_id: software.id}, valid_session
+          assigns(:license).should be_a_new(License)
+        end
+
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          License.any_instance.stub(:save).and_return(false)
+          post :create, {:license => {"software_id" => "invalid value"}, software_id: software.id}, valid_session
+          response.should render_template("new")
+        end
+      end
+    end
+
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested license" do
+          license = License.create! valid_attributes
+          # Assuming there are no other licenses in the database, this
+          # specifies that the License created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          License.any_instance.should_receive(:update).with({"software_id" => "1"})
+          put :update, {:id => license.to_param, :license => {"software_id" => "1"}, software_id: software.id}, valid_session
+        end
+
+        it "assigns the requested license as @license" do
+          license = License.create! valid_attributes
+          put :update, {:id => license.to_param, :license => valid_attributes, software_id: software.id}, valid_session
+          assigns(:license).should eq(license)
+        end
+
+        it "redirects to the license" do
+          license = License.create! valid_attributes
+          put :update, {:id => license.to_param, :license => valid_attributes, software_id: software.id}, valid_session
+          response.should redirect_to(software_license_url(software, license))
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the license as @license" do
+          license = License.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          License.any_instance.stub(:save).and_return(false)
+          put :update, {:id => license.to_param, :license => {"software_id" => "invalid value"}, software_id: software.id}, valid_session
+          assigns(:license).should eq(license)
+        end
+
+        it "re-renders the 'edit' template" do
+          license = License.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          License.any_instance.stub(:save).and_return(false)
+          put :update, {:id => license.to_param, :license => {"software_id" => "invalid value"}, software_id: software.id}, valid_session
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "destroys the requested license" do
+        license = License.create! valid_attributes
+        expect {
+          delete :destroy, {:id => license.to_param, software_id: software.id}, valid_session
+        }.to change(License, :count).by(-1)
+      end
+
+      it "redirects to the licenses list" do
+        license = License.create! valid_attributes
         delete :destroy, {:id => license.to_param, software_id: software.id}, valid_session
-      }.to change(License, :count).by(-1)
-    end
-
-    it "redirects to the licenses list" do
-      license = License.create! valid_attributes
-      delete :destroy, {:id => license.to_param, software_id: software.id}, valid_session
-      response.should redirect_to(software_licenses_url(software))
+        response.should redirect_to(software_licenses_url(software))
+      end
     end
   end
-
 end

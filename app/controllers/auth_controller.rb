@@ -14,4 +14,8 @@ class AuthController < ApplicationController
 
     redirect_to redirect_url
   end
+
+  def unauthorized
+
+  end
 end

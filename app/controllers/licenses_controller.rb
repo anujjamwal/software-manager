@@ -1,4 +1,6 @@
 class LicensesController < ApplicationController
+  include Authenticable
+
   before_action :set_software
   before_action :set_license, only: [:show, :edit, :update, :destroy]
 
