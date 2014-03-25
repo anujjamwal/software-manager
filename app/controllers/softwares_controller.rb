@@ -72,7 +72,7 @@ class SoftwaresController < ApplicationController
     user_permission = @software.approved? || can?(:download_unapproved)
     if user_permission && @software.download_policy.permit?(@software, current_user)
       send_file @software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream'
-      @software.increment(:download_count)
+      @software.increment!(:download_count)
     else
       redirect_to :back, notice: "You donot seen to have permission to download #{@software.name}. Please contact admin"
     end

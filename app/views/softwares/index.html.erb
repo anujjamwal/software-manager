@@ -1,38 +1,18 @@
-<%= form_tag(softwares_path, method: :get) do %>
-    <%= search_field_tag :q %>
-    <%= submit_tag 'Search' %>
+<%= form_tag(softwares_path, method: :get, class: 'search-software form form-horizontal') do %>
+    <div class="input-group search-input">
+      <input type="text" class="form-control" name="q" value="<%= params[:q] %>"/>
+
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+    </div>
+
 <% end %>
 
-<h1>Listing softwares</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Path</th>
-      <th>Operating system</th>
-      <th>State</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @softwares.each do |software| %>
-      <tr>
-        <td><%= software.name %></td>
-        <td><%= software.path %></td>
-        <td><%= software.operating_system_id %></td>
-        <td><%= software.state %></td>
-        <td><%= link_to 'Show', software %></td>
-        <td><%= link_to 'Edit', edit_software_path(software) %></td>
-        <td><%= link_to 'Destroy', software, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Software', new_software_path %>
+<ul class="download-list">
+  <% @softwares.each do |software| %>
+      <li class="list-item">
+        <%= render partial: 'softwares/software_item', locals: {software: software} %>
+      </li>
+  <% end %>
+</ul>

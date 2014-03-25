@@ -1,3 +1,79 @@
 // Place all the styles related to the softwares controller here.
-// They will automatically be included in application.css.
+// They will automatically be included in application.css.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.search-software {
+  width: 700px;
+  margin: 30px auto;
+}
+
+.download-list {
+  padding: 0;
+  list-style: none;
+  width: 1200px;
+
+  .list-item {
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1px;
+    border: 1px solid #ddd;
+
+    .list-item-right {
+      width: 100px;
+      height: 80px;
+      float: right;
+      margin-top: 10px;
+      border-left: 1px solid #ddd;
+
+      .download-link {
+        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+        }
+
+        i {
+          font-size: 55px;
+          text-align: center;
+          display: block;
+          text-decoration: none;
+        }
+      }
+
+      .download-count {
+        width: 77px;
+        background: rgb(121, 211, 161);
+        color: black;
+        font-size: 0.7em;
+        font-family: sans-serif;
+        margin: 0 auto;
+        margin-top: 9px;
+
+        span {
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+
+    .list-item-body {
+      width: 1000px;
+      height: 98px;
+      padding: 10px;
+      float: left;
+
+      .software-name {
+        font-size: 25px;
+
+        .edit a{
+          color: #444;
+          opacity: 0.6;
+
+          &:hover {
+            opacity: 1;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
