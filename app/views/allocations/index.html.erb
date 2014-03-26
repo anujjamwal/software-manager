@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Software</th>
       <th>License</th>
       <th>User</th>
       <th>Project code</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @allocations.each do |allocation| %>
       <tr>
+        <td><%= link_to allocation.license.software.name, allocation.license.software %></td>
         <td><%= allocation.license_id %></td>
         <td><%= allocation.user_id %></td>
         <td><%= allocation.project_code %></td>

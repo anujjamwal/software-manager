@@ -1,33 +1,36 @@
 <div class="list-item-body">
     <div class="software-name">
-          <span class="name"><%= link_to software.name, software %></span>
+        <span class="name"><%= link_to software.name, software %></span>
         <% if current_user.can?(:softwares, :edit) %>
-          <span class="edit"><a class="glyphicon glyphicon-edit" href="<%= edit_software_path(software) %>"></a></span>
+            <span class="edit"><a class="glyphicon glyphicon-edit" href="<%= edit_software_path(software) %>"></a></span>
         <% end %>
     </div>
     <div class="details">
+      <span class="label label-default">
+          <%= software.operating_system.name %>
+      </span>
       <% unless software.approved? %>
-          <span class="label label-danger">
-            <%= software.state %>
-          </span>
-      <% end %>
+            <span class="label label-danger">
+                <%= software.state %>
+            </span>
+        <% end %>
+
     </div>
 </div>
 <div class="list-item-right">
-  <% if software.download_policy.permit?(software, current_user) %>
-    <a class="download-link" href="<%= download_software_path(software) %>">
-      <i class="glyphicon glyphicon-download"></i>
-    </a>
-      <div class="download-count">
-        <span>Download</span>
-      </div>
-      <% else %>
-      <a class="download-link" href="" tooltip="Request Access">
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
+    <% if software.download_policy.permit?(software, current_user) %>
+      <a class="download-link" href="<%= download_software_path(software) %>">
+          <i class="glyphicon glyphicon-download"></i>
       </a>
       <div class="download-count">
-        <span>Request Access</span>
+          <span>Download</span>
       </div>
-      <% end %>
-
+    <% else %>
+      <a class="download-link" href="" tooltip="Request Access">
+          <i class="glyphicon glyphicon-exclamation-sign"></i>
+      </a>
+      <div class="download-count">
+          <span>Request Access</span>
+      </div>
+    <% end %>
 </div>

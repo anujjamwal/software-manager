@@ -26,4 +26,9 @@
     <%= link_to 'Request Access', '' %> |
 <% end %>
 <%= link_to 'Edit', edit_software_path(@software) %> |
+
+<% unless @software.download_policy.class == DownloadPolicy %>
+    <%= link_to 'Licenses', software_licenses_path(@software) %> |
+<% end %>
+
 <%= link_to 'Back', softwares_path %>

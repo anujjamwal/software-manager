@@ -29,4 +29,10 @@ describe User do
       expect(User.ensure({'uid' => user.uid}).id).to be(user.id)
     end
   end
+
+  describe :search do
+    it 'should search for a user by name and uid' do
+      expect(User.search('key').where_values).to eq(["LOWER(name) like '%key%' or LOWER(uid) like '%key%'"])
+    end
+  end
 end

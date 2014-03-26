@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates :uid, uniqueness: true, presence: true
   validates :role, presence: true
 
+  scope :search, ->(key){ where('LOWER(name) like ? or LOWER(uid) like ?', "%#{key.downcase}%", "%#{key.downcase}%") }
+
   def self.ensure(auth)
     user = User.where(uid: auth['uid']).first_or_create(role: Role.first)
     user
