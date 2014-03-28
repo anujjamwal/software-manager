@@ -14,7 +14,7 @@ class Allocation < ActiveRecord::Base
 
   def self.build(request, license)
     instance = new
-    instance.update(license: license, user: request.user, project_code: request.project_code)
+    instance.update(license: license, user: request.user, project_code: request.project_code, state: :active)
     instance
   end
 end

@@ -10,19 +10,19 @@
       <th>License user</th>
       <th>License</th>
       <th>Cost</th>
-      <th></th>
     </tr>
     </thead>
 
     <tbody>
     <% @licenses.each do |license| %>
+    <% license.allocations.each do |allocation| %>
         <tr>
           <td><%= license.software.name %>  </td>
           <td><%= license.license_user %>  </td>
           <td><%= license.license %>  </td>
           <td>$<%= license.cost / license.user_count %></td>
-          <td><%= link_to '<i class="glyphicon glyphicon-trash"></i><span>Return license back</span>'.html_safe, license_allocation_path(@software, license), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %></td>
         </tr>
+    <% end %>
     <% end %>
     </tbody>
   </table>

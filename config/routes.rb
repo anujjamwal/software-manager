@@ -2,7 +2,7 @@ SoftwareManager::Application.routes.draw do
   post "auth/:provider/callback" => "auth#create"
   get "unauthorized" => "auth#unauthorized", as: :unauthorized
 
-  resources :licenses, only: [:index] do
+  resources :licenses, only: [] do
     resources :allocations
   end
 

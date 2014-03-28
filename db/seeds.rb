@@ -8,7 +8,7 @@
 
 
 {
-  'UserRole' => { softwares: [:index, :show, :download], requests: [:new, :create, :index, :destroy], application: [:home] },
+  'UserRole' => { softwares: [:index, :show, :download], requests: [:new, :create, :index, :destroy], application: [:home], licenses: [:user_license], allocations: [:destroy] },
   'AdminRole' => { softwares: [:all], licenses: [:all], operating_systems: [:all], allocations: [:all], users: [:all], requests: [:all], application: [:all] }
 }.each do |name, permissions|
   role = Role.where(name: name).first_or_create

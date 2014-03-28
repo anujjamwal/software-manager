@@ -37,3 +37,6 @@
 </table>
 
 <br>
+<% if current_user.can?(:allocations, :new) && @software%>
+<%= link_to 'New License', new_software_license_path(@software) %>
+<%end%>
