@@ -7,7 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="page-header">
+  <div class="content">
+    <%= link_to 'Software', softwares_path %>
+    | <%= link_to 'Requests', requests_path %>
+  </div>
+</div>
 <div class="content">
   <div id="notification">
     <% if flash[:alert] %>
@@ -16,11 +21,6 @@
     <% if flash[:notice] %>
         <p class="flash-notice"><%= flash[:notice] %></p>
     <% end %>
-  </div>
-  <div class="header">
-    <%= link_to 'Software', softwares_path %>
-    | <%= link_to 'Requests', requests_path %>
-
   </div>
   <%= yield %>
 </div>

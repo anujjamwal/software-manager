@@ -12,9 +12,22 @@
  *= require_tree .
  */
 @import "bootstrap";
+@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+
+html, body {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
 
 .content {
   width: 1200px;
   margin: 0 auto;
+}
 
+.page-header {
+  margin: 0px;
+  padding: 0px;
+  background: #0078bf;
+  height: 60px;
 }
