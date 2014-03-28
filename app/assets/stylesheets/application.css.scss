@@ -28,6 +28,20 @@ html, body {
 
 #container {
   background: #f2f2f2;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#footer {
+  height: 50px;
+  margin: 0 auto;
+  width: 1000px;
+
+  .info {
+      text-align: center;
+      margin-top: 20px;
+      color: #bbb;
+  }
 }
 
 .page-header {

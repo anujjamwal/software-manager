@@ -4,7 +4,7 @@
         <input type="text" class="form-control" name="q" value="<%= params[:q] %>"/>
 
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
+        <button class="btn btn-default" type="submit">Search</button>
       </span>
       </div>
 
@@ -19,6 +19,9 @@
               </li>
           <% end %>
         </ul>
+        <div class="pagination-menu">
+        <%= will_paginate @softwares, renderer: BootstrapPagination::Rails %>
+        </div>
     <% else %>
         <div class="alert alert-warning">
           <i class="glyphicon glyphicon-exclamation-sign"></i><span>No softwares found</span></div>

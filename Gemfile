@@ -12,6 +12,7 @@ gem 'omniauth-saml'
 gem 'whenever'
 
 gem 'bootstrap-sass'
+gem 'will_paginate-bootstrap'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
