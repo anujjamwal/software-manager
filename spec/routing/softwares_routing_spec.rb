@@ -3,6 +3,10 @@ require "spec_helper"
 describe SoftwaresController do
   describe "routing" do
 
+    it "routes to #index for os" do
+      get("/windows/softwares").should route_to("softwares#index", os: 'windows')
+    end
+
     it "routes to #index" do
       get("/softwares").should route_to("softwares#index")
     end

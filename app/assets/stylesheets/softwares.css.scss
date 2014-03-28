@@ -1,16 +1,32 @@
 // Place all the styles related to the softwares controller here.
 // They will automatically be included in application.css.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.search-software {
-  width: 700px;
-  margin: 30px auto;
+.software-list-page {
+  width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  background: white;
+
+  .search-software {
+    width: 700px;
+    margin: 30px auto;
+  }
+
+  .alert-warning {
+    i {
+      margin-right: 10px;
+    }
+  }
 }
 
 .download-list {
+  margin: 0 auto;
   padding: 0;
   list-style: none;
-  width: 1185px;
-  border: 1px solid #eee;
+  width: 1000px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 
   .software-item {
     font-family: "Open Sans", sans-serif !important;
@@ -20,12 +36,8 @@
     height: 90px;
     border-bottom: 1px solid #eee;
 
-    &:last-child {
-//      border-bottom: none;
-    }
-
     .body {
-      width: 990px;
+      width: 800px;
       float: left;
       position: relative;
       height: 100%;
@@ -37,6 +49,7 @@
           color: #999;
           padding: 0 7px;
           border-right: 1px solid #aaa;
+          font-size: 13px;
 
           &:last-child {
             border-right: none;
@@ -49,7 +62,7 @@
         margin-top: 5px;
 
         .title {
-          font-size: 34px;
+          font-size: 28px;
           font-weight: 300;
           a {
             color: #555;

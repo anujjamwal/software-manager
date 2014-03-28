@@ -8,6 +8,10 @@ SoftwareManager::Application.routes.draw do
 
   resources :operating_systems
 
+  scope ':os' do
+    get 'softwares' => 'softwares#index', as: :os_software
+  end
+
   resources :softwares do
     member do
       get 'download'

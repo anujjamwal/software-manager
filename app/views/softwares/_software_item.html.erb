@@ -4,7 +4,7 @@
         <span class="title"><%= link_to software.name, software %></span>
         <% if current_user.can?(:softwares, :edit) %>
             <span class="edit">
-              <a href="<%= edit_software_path(software) %>"><i class="glyphicon glyphicon-edit"></i></a>
+              <a href="<%= edit_software_path(software) %>"><i class="glyphicon glyphicon-pencil"></i></a>
             </span>
         <% end %>
     </div>

@@ -46,6 +46,22 @@ describe SoftwaresController do
         get :index, {}, valid_session
         assigns(:softwares).should eq([software])
       end
+
+      context :os do
+        it "assigns all softwares as @softwares for the os if specified" do
+          software = FactoryGirl.create(:software, state: 'approved')
+          FactoryGirl.create(:software, state: 'approved')
+          get :index, {os: software.operating_system.name.downcase}, valid_session
+          assigns(:softwares).should eq([software])
+        end
+
+        it "assigns all softwares as @softwares for the os if specified" do
+          software = FactoryGirl.create(:software, state: 'unapproved')
+          software2 = FactoryGirl.create(:software, state: 'approved', operating_system: software.operating_system)
+          get :index, {os: software.operating_system.name.downcase}, valid_session
+          assigns(:softwares).should eq([software2])
+        end
+      end
     end
 
     describe "GET show" do

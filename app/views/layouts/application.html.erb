@@ -2,27 +2,44 @@
 <html>
 <head>
   <title>SoftwareManager</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="page-header">
+<div id="container">
+  <div class="page-header">
+    <div class="content">
+      <div class="logo">
+        <div>DOWNLOAD</div>
+        <div>.thoughtworks.com</div>
+      </div>
+      <div class="links">
+        <%= link_to 'All Software', softwares_path %>
+        <% OperatingSystem.all.each do |os| %>
+            | <%= link_to os.name, os_software_path(os: os.name.downcase) %>
+        <% end %>
+        | <%= link_to 'Requests', requests_path %>
+      </div>
+      <div class="header-user">
+        <% if current_user %>
+            <i class="glyphicon glyphicon-user"></i>
+            <span><%= "Welcome, #{current_user.name}" %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <div class="content">
-    <%= link_to 'Software', softwares_path %>
-    | <%= link_to 'Requests', requests_path %>
+    <div id="notification">
+      <% if flash[:alert] %>
+          <p class="flash-error"><%= flash[:alert] %></p>
+      <% end %>
+      <% if flash[:notice] %>
+          <p class="flash-notice"><%= flash[:notice] %></p>
+      <% end %>
+    </div>
+    <%= yield %>
   </div>
-</div>
-<div class="content">
-  <div id="notification">
-    <% if flash[:alert] %>
-        <p class="flash-error"><%= flash[:alert] %></p>
-    <% end %>
-    <% if flash[:notice] %>
-        <p class="flash-notice"><%= flash[:notice] %></p>
-    <% end %>
-  </div>
-  <%= yield %>
 </div>
 
 </body>

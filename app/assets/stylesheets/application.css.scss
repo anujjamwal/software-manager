@@ -23,6 +23,11 @@ html, body {
 .content {
   width: 1200px;
   margin: 0 auto;
+  position: relative;
+}
+
+#container {
+  background: #f2f2f2;
 }
 
 .page-header {
@@ -30,4 +35,42 @@ html, body {
   padding: 0px;
   background: #0078bf;
   height: 60px;
+
+  .logo {
+    display: inline-block;
+
+    div {
+      text-align: center;
+    }
+
+    div:first-child {
+      font-size: 2em;
+      color: white;
+      margin: 0;
+      padding: 0;
+      line-height: 1em;
+      margin-top: 6px;
+    }
+
+  }
+
+  .links {
+    color: white;
+    position: absolute;
+    right: 50%;
+    top: 37px;
+
+    a{
+      color: white;
+    }
+  }
+
+  .header-user {
+    width: 190px;
+    position: absolute;
+    right: 5px;
+    color: white;
+    top: 17px;
+
+  }
 }

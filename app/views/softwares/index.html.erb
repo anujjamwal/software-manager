@@ -1,18 +1,27 @@
-<%= form_tag(softwares_path, method: :get, class: 'search-software form form-horizontal') do %>
-    <div class="input-group search-input">
-      <input type="text" class="form-control" name="q" value="<%= params[:q] %>"/>
+<div class="software-list-page">
+  <%= form_tag('', method: :get, class: 'search-software form form-horizontal') do %>
+      <div class="input-group search-input">
+        <input type="text" class="form-control" name="q" value="<%= params[:q] %>"/>
 
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Search</button>
       </span>
-    </div>
+      </div>
 
-<% end %>
-
-<ul class="download-list">
-  <% @softwares.each do |software| %>
-      <li class="list-item">
-        <%= render partial: 'softwares/software_item', locals: {software: software} %>
-      </li>
   <% end %>
-</ul>
+
+  <div>
+    <% if @softwares.count > 0 %>
+        <ul class="download-list">
+          <% @softwares.each do |software| %>
+              <li class="list-item">
+                <%= render partial: 'softwares/software_item', locals: {software: software} %>
+              </li>
+          <% end %>
+        </ul>
+    <% else %>
+        <div class="alert alert-warning">
+          <i class="glyphicon glyphicon-exclamation-sign"></i><span>No softwares found</span></div>
+    <% end %>
+  </div>
+</div>

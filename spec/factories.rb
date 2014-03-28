@@ -1,6 +1,10 @@
 FactoryGirl.define do
+  sequence :name do |n|
+    "Role#{n}"
+  end
+
   factory :operating_system do
-    name 'Windows'
+    name
   end
 
   factory :download_policy do
@@ -35,10 +39,6 @@ FactoryGirl.define do
 
   sequence :uid do |n|
     "user#{n}"
-  end
-
-  sequence :name do |n|
-    "Role#{n}"
   end
 
   factory :role do

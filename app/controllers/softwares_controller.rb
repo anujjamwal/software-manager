@@ -6,10 +6,11 @@ class SoftwaresController < ApplicationController
   # GET /softwares
   # GET /softwares.json
   def index
+    context = params[:os] ? OperatingSystem.where(['lower(name) = ?', params[:os].downcase]).first.softwares : Software
     if can?(:view_unapproved)
-      @softwares = Software.search(params[:q])
+      @softwares = context.search(params[:q])
     else
-      @softwares = Software.approved.search(params[:q])
+      @softwares = context.approved.search(params[:q])
     end
   end
 
