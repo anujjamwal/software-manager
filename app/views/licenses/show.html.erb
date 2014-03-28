@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Software:</strong>
   <%= link_to @software.name, @software %>
@@ -38,3 +36,33 @@
 <%= link_to 'Allocate', new_license_allocation_path(@license) %> |
 <%= link_to 'Edit', edit_software_license_path(@software, @license) %> |
 <%= link_to 'Back', software_licenses_path(@software) %>
+
+<h1>Listing allocations</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Software</th>
+    <th>License</th>
+    <th>User</th>
+    <th>Project code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @license.allocations.each do |allocation| %>
+      <tr>
+        <td><%= link_to allocation.license.software.name, allocation.license.software %></td>
+        <td><%= allocation.license_id %></td>
+        <td><%= allocation.user.name %> (<%=allocation.user.email%>) </td>
+        <td><%= allocation.project_code %></td>
+        <td><%= link_to 'Show', license_allocation_path(@license, allocation) %></td>
+        <td><%= link_to 'Edit', edit_license_allocation_path(@license, allocation) %></td>
+        <td><%= link_to 'Destroy', license_allocation_path(@license, allocation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

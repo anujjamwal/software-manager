@@ -8,4 +8,10 @@ class Allocation < ActiveRecord::Base
   def license_availability
     errors.add(:license, 'unavailable for allocation') unless self.license.available? if self.license
   end
+
+  def self.build(request, license)
+    instance = new
+    instance.update(license: license, user: request.user, project_code: request.project_code)
+    instance
+  end
 end

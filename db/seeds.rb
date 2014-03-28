@@ -8,8 +8,8 @@
 
 
 {
-  'UserRole' => { softwares: [:index, :show, :download] },
-  'AdminRole' => { softwares: [:all], licenses: [:all], operating_systems: [:all], allocations: [:all], users: [:all] }
+  'UserRole' => { softwares: [:index, :show, :download], requests: [:new, :create, :index, :destroy] },
+  'AdminRole' => { softwares: [:all], licenses: [:all], operating_systems: [:all], allocations: [:all], users: [:all], requests: [:all] }
 }.each do |name, permissions|
   role = Role.where(name: name).first_or_create
   role.update(permissions: permissions)

@@ -11,9 +11,13 @@ FactoryGirl.define do
 
   end
 
+  sequence :path do |n|
+    "/path/sw-#{n}"
+  end
+
   factory :software do
     name 'MS Office'
-    path '/home/path/office'
+    path
     operating_system
     state 'available'
     download_policy {DownloadPolicy.first}
@@ -52,6 +56,12 @@ FactoryGirl.define do
   factory :allocation do
     user
     license
+    project_code 'MCK15363'
+  end
+
+  factory :request do
+    software
+    user
     project_code 'MCK15363'
   end
 end

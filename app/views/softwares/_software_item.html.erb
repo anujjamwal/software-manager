@@ -2,19 +2,23 @@
     <div class="software-name">
         <span class="name"><%= link_to software.name, software %></span>
         <% if current_user.can?(:softwares, :edit) %>
-            <span class="edit"><a class="glyphicon glyphicon-edit" href="<%= edit_software_path(software) %>"></a></span>
+            <span class="edit">
+              <a class="glyphicon glyphicon-edit" href="<%= edit_software_path(software) %>"></a>
+            </span>
         <% end %>
     </div>
     <div class="details">
       <span class="label label-default">
           <%= software.operating_system.name %>
       </span>
+      <span class="label label-warning">
+          <%= download_policy(software) %>
+      </span>
       <% unless software.approved? %>
             <span class="label label-danger">
                 <%= software.state %>
             </span>
         <% end %>
-
     </div>
 </div>
 <div class="list-item-right">
@@ -26,7 +30,7 @@
           <span>Download</span>
       </div>
     <% else %>
-      <a class="download-link" href="" tooltip="Request Access">
+      <a class="download-link" href="<%= new_software_request_url(software) %>" tooltip="Request Access">
           <i class="glyphicon glyphicon-exclamation-sign"></i>
       </a>
       <div class="download-count">

@@ -19,11 +19,11 @@
   <tbody>
     <% @licenses.each do |license| %>
       <tr>
-        <td><%= license.software.name %></td>
-        <td><%= license.license_user %></td>
-        <td><%= license.license %></td>
-        <td><%= license.user_count %></td>
-        <td><%= license.used_count %></td>
+        <td><%= license.software.name %>  </td>
+        <td><%= license.license_user %>  </td>
+        <td><%= license.license %>  </td>
+        <td><%= license.user_count %>  </td>
+        <td><%= link_to license.used_count, license_allocations_url(license) %>  </td>
         <td><%= license.purchase_date %></td>
         <td><%= license.cost %></td>
         <td><%= link_to 'Show', software_license_path(@software, license) %></td>

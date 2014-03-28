@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :requests
   has_many :allocations
   has_many :licenses, through: :allocations
   belongs_to :role

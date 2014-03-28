@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325020723) do
+ActiveRecord::Schema.define(version: 20140326071837) do
 
   create_table "allocations", force: true do |t|
     t.integer  "license_id"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20140325020723) do
 
   create_table "operating_systems", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requests", force: true do |t|
+    t.integer  "software_id"
+    t.string   "project_code"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

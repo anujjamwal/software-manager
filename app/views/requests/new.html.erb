@@ -1,0 +1,27 @@
+<h1>New request</h1>
+
+<%= render 'form' %>
+
+<table>
+  <thead>
+  <tr>
+    <th>Software</th>
+    <th>Project code</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% current_user.requests.where(software_id: @software).each do |request| %>
+      <tr>
+        <td><%= request.software.name %></td>
+        <td><%= request.project_code %></td>
+        <td><%= link_to 'Deny', software_request_path(request.software, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+<%= link_to 'Back', "" %>

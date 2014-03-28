@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @software.name %>
@@ -23,7 +21,7 @@
 <% if @software.download_policy.permit?(@software, current_user) %>
     <%= link_to 'Download', download_software_url(@software) %> |
 <% else %>
-    <%= link_to 'Request Access', '' %> |
+    <%= link_to 'Request Access', new_software_request_url(@software) %> |
 <% end %>
 <%= link_to 'Edit', edit_software_path(@software) %> |
 

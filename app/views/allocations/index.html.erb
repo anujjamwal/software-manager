@@ -17,8 +17,8 @@
     <% @allocations.each do |allocation| %>
       <tr>
         <td><%= link_to allocation.license.software.name, allocation.license.software %></td>
-        <td><%= allocation.license_id %></td>
-        <td><%= allocation.user_id %></td>
+        <td><%= link_to allocation.license.license_user, software_license_path(@license.software, @license) %></td>
+        <td><%= allocation.user.name %></td>
         <td><%= allocation.project_code %></td>
         <td><%= link_to 'Show', license_allocation_path(@license, allocation) %></td>
         <td><%= link_to 'Edit', edit_license_allocation_path(@license, allocation) %></td>

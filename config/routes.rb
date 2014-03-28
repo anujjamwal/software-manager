@@ -13,8 +13,14 @@ SoftwareManager::Application.routes.draw do
       get 'download'
     end
     resources :licenses
+    resources :requests, except: [:index] do
+      member do
+        post 'approve'
+      end
+    end
   end
 
+  resources :requests, only: [:index]
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,5 +1,5 @@
 class Software < ActiveRecord::Base
-  STATE = [:approved, :unapproved]
+  STATE = [:approved, :unapproved, :unavailable]
   DEFAULT_DOWNLOAD_POLICY = DownloadPolicy
 
   include Stateful
@@ -7,6 +7,7 @@ class Software < ActiveRecord::Base
   belongs_to :operating_system
   belongs_to :download_policy
   has_many :licenses
+  has_many :requests
 
   validates :name, :path, :state, :operating_system, :download_policy, presence: true
   validates :path, uniqueness: true

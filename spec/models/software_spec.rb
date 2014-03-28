@@ -9,6 +9,7 @@ describe Software do
   it { should validate_uniqueness_of :path }
 
   it { should have_many :licenses }
+  it { should have_many :requests }
   it { should belong_to :download_policy }
   it { should belong_to :operating_system }
 

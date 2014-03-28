@@ -1,0 +1,30 @@
+<h1>Listing requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Software</th>
+      <th>Project code</th>
+      <th>User</th>
+      <th>License</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.software.name %></td>
+        <td><%= request.project_code %></td>
+        <td><%= request.user.name %> (<%= request.user.email %>)</td>
+        <td><%= link_to 'Deny', software_request_path(request.software, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <% if current_user.can?(:softwares, :approve) %>
+            <td><%= link_to 'Approve', approve_software_request_path(request.software, request), method: :post, class: 'btn btn-primary' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
