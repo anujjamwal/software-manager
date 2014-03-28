@@ -8,7 +8,21 @@
             </span>
         <% end %>
     </div>
-    <div class="sub-header"></div>
+    <% if current_user.can?(:softwares, :edit) %>
+        <div class="sub-header-1">
+          <span class="label
+            <% case software.state %>
+            <% when 'approved' %>
+                label-success
+            <% when 'unapproved' %>
+                label-danger
+            <% else %>
+                label-warning
+            <% end %>
+
+          "><%= software.state %></span>
+        </div>
+    <% end %>
     <div class="sub-header">
       <span class="label"><%= software.operating_system.name %></span>
       <span class="label"><%= download_policy(software) %></span>
