@@ -1,4 +1,4 @@
-<div class="software-list-page">
+<div id="software-list-page" class="page">
   <%= form_tag('', method: :get, class: 'search-software form form-horizontal') do %>
       <div class="input-group search-input">
         <input type="text" class="form-control" name="q" value="<%= params[:q] %>"/>
@@ -20,7 +20,7 @@
           <% end %>
         </ul>
         <div class="pagination-menu">
-        <%= will_paginate @softwares, renderer: BootstrapPagination::Rails %>
+          <%= will_paginate @softwares, renderer: BootstrapPagination::Rails %>
         </div>
     <% else %>
         <div class="alert alert-warning">

@@ -28,6 +28,7 @@ class AllocationsController < ApplicationController
   # POST /allocations.json
   def create
     @allocation = @license.allocations.new(allocation_params)
+    @allocation.state = :active
 
     respond_to do |format|
       if @allocation.save
@@ -57,9 +58,11 @@ class AllocationsController < ApplicationController
   # DELETE /allocations/1
   # DELETE /allocations/1.json
   def destroy
-    @allocation.destroy
+    @allocation.state = 'inactive'
+    @allocation.save
+    url = can?(:index) ? license_allocations_path(@license) : softwares_path
     respond_to do |format|
-      format.html { redirect_to license_allocations_url(@license) }
+      format.html { redirect_to url, notice: 'License returned successfully.' }
       format.json { head :no_content }
     end
   end
@@ -77,6 +80,6 @@ class AllocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def allocation_params
-      params.require(:allocation).permit(:license_id, :user_id, :project_code)
+      params.require(:allocation).permit(:license_id, :user_id, :project_code, :state)
     end
 end

@@ -1,4 +1,7 @@
 class Allocation < ActiveRecord::Base
+  STATE = [:active, :inactive]
+  include Stateful
+
   belongs_to :license
   belongs_to :user
 

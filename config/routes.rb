@@ -2,7 +2,7 @@ SoftwareManager::Application.routes.draw do
   post "auth/:provider/callback" => "auth#create"
   get "unauthorized" => "auth#unauthorized", as: :unauthorized
 
-  resources :licenses, only: [] do
+  resources :licenses, only: [:index] do
     resources :allocations
   end
 
@@ -16,7 +16,12 @@ SoftwareManager::Application.routes.draw do
     member do
       get 'download'
     end
-    resources :licenses
+    resources :licenses do
+      collection do
+        get 'owned' => 'licenses#user_license'
+      end
+    end
+
     resources :requests, except: [:index] do
       member do
         post 'approve'
@@ -31,7 +36,7 @@ SoftwareManager::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'application#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

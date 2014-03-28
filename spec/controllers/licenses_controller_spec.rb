@@ -154,9 +154,9 @@ describe LicensesController do
     describe "DELETE destroy" do
       it "destroys the requested license" do
         license = License.create! valid_attributes
-        expect {
-          delete :destroy, {:id => license.to_param, software_id: software.id}, valid_session
-        }.to change(License, :count).by(-1)
+        delete :destroy, {:id => license.to_param, software_id: software.id}, valid_session
+        license.reload
+        expect(license.state).to eq('inactive')
       end
 
       it "redirects to the licenses list" do

@@ -19,6 +19,10 @@
     <%= f.label :project_code %><br>
     <%= f.text_field :project_code %>
   </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.select :state, Allocation::STATE %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

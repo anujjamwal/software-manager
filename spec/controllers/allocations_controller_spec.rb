@@ -156,15 +156,15 @@ describe AllocationsController do
     describe "DELETE destroy" do
       it "destroys the requested allocation" do
         allocation = Allocation.create! valid_attributes
-        expect {
-          delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
-        }.to change(Allocation, :count).by(-1)
+        delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
+        allocation.reload
+        expect(allocation.state).to eq('inactive')
       end
 
       it "redirects to the allocations list" do
         allocation = Allocation.create! valid_attributes
         delete :destroy, {:id => allocation.to_param, license_id: license.id}, valid_session
-        response.should redirect_to(license_allocations_url(license))
+        response.should redirect_to(softwares_url)
       end
     end
   end

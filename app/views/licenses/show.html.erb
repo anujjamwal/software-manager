@@ -33,6 +33,12 @@
   <%= @license.used_count %>
 </p>
 
+
+<p>
+  <strong>State:</strong>
+  <% if @license.active? %><span class="label label-success">Active</span><%else%><span class="label label-danger">Inactive</span><%end%>
+</p>
+
 <%= link_to 'Allocate', new_license_allocation_path(@license) %> |
 <%= link_to 'Edit', edit_software_license_path(@software, @license) %> |
 <%= link_to 'Back', software_licenses_path(@software) %>
@@ -46,6 +52,7 @@
     <th>License</th>
     <th>User</th>
     <th>Project code</th>
+    <th>State</th>
     <th></th>
     <th></th>
     <th></th>
@@ -59,6 +66,7 @@
         <td><%= allocation.license_id %></td>
         <td><%= allocation.user.name %> (<%=allocation.user.email%>) </td>
         <td><%= allocation.project_code %></td>
+        <td><% if allocation.active? %><span class="label label-success">Active</span><%else%><span class="label label-danger">Inactive</span><%end%></td>
         <td><%= link_to 'Show', license_allocation_path(@license, allocation) %></td>
         <td><%= link_to 'Edit', edit_license_allocation_path(@license, allocation) %></td>
         <td><%= link_to 'Destroy', license_allocation_path(@license, allocation), method: :delete, data: { confirm: 'Are you sure?' } %></td>

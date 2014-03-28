@@ -6,9 +6,7 @@
       <th>Software</th>
       <th>Project code</th>
       <th>User</th>
-      <th>License</th>
-      <th></th>
-      <th></th>
+      <th>License Availability</th>
       <th></th>
     </tr>
   </thead>
@@ -16,9 +14,11 @@
   <tbody>
     <% @requests.each do |request| %>
       <tr>
+        <% availability = request.software.licenses.active.count > 0 %>
         <td><%= request.software.name %></td>
         <td><%= request.project_code %></td>
         <td><%= request.user.name %> (<%= request.user.email %>)</td>
+        <td><% if availability %><span class="label label-success">Available</span><%else%><span class="label label-danger">Not Available</span><%end%></td>
         <td><%= link_to 'Deny', software_request_path(request.software, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         <% if current_user.can?(:softwares, :approve) %>
             <td><%= link_to 'Approve', approve_software_request_path(request.software, request), method: :post, class: 'btn btn-primary' %></td>

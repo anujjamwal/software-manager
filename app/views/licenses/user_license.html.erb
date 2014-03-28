@@ -1,0 +1,29 @@
+<div id="userLicensePage" class="page">
+  <%= link_to '<i class="glyphicon glyphicon-circle-arrow-left"></i><span>Back</span>'.html_safe, :back, class: "btn btn-default" %>
+
+  <h1>License for <%= @software.name %></h1>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Software</th>
+      <th>License user</th>
+      <th>License</th>
+      <th>Cost</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @licenses.each do |license| %>
+        <tr>
+          <td><%= license.software.name %>  </td>
+          <td><%= license.license_user %>  </td>
+          <td><%= license.license %>  </td>
+          <td>$<%= license.cost / license.user_count %></td>
+          <td><%= link_to '<i class="glyphicon glyphicon-trash"></i><span>Return license back</span>'.html_safe, license_allocation_path(@software, license), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

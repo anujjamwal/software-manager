@@ -7,6 +7,7 @@
       <th>License</th>
       <th>User</th>
       <th>Project code</th>
+      <th>State</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,6 +21,7 @@
         <td><%= link_to allocation.license.license_user, software_license_path(@license.software, @license) %></td>
         <td><%= allocation.user.name %></td>
         <td><%= allocation.project_code %></td>
+        <td><% if allocation.active? %><span class="label label-success">Active</span><%else%><span class="label label-danger">Inactive</span><%end%></td>
         <td><%= link_to 'Show', license_allocation_path(@license, allocation) %></td>
         <td><%= link_to 'Edit', edit_license_allocation_path(@license, allocation) %></td>
         <td><%= link_to 'Destroy', license_allocation_path(@license, allocation), method: :delete, data: { confirm: 'Are you sure?' } %></td>

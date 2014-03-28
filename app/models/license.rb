@@ -1,4 +1,7 @@
 class License < ActiveRecord::Base
+  STATE = [:active, :inactive]
+  include Stateful
+
   has_many :allocations
   has_many :users, through: :allocations
   belongs_to :software

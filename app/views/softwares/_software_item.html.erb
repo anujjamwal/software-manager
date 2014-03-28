@@ -34,10 +34,12 @@
     <% if software.download_policy.permit?(software, current_user) %>
         <a class="btn btn-success" href="<%= download_software_path(software) %>"><span>Download</span><i class="glyphicon glyphicon-download"></i></a>
         <% unless software.download_policy.class == DownloadPolicy %>
-            <button class="btn btn-info"><span>License</span><i class="glyphicon glyphicon-book"></i></button>
+            <a class="btn btn-info" href="<%= owned_software_licenses_path(software) %>"><span>License</span><i class="glyphicon glyphicon-book"></i></a>
         <% end %>
+    <% elsif current_user.requests.where(software_id: software.id).count > 0 %>
+        <a class="btn btn-default" href="<%= new_software_request_path(software) %>"><span>Waiting</span><i class="glyphicon glyphicon-time"></i></a>
     <% else %>
-        <button class="btn btn-warning"><span>Request</span><i class="glyphicon glyphicon-lock"></i></button>
+        <a class="btn btn-warning" href="<%= new_software_request_path(software) %>"><span>Request</span><i class="glyphicon glyphicon-lock"></i></a>
     <% end %>
   </div>
 </div>

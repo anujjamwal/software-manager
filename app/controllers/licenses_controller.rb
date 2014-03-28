@@ -1,13 +1,18 @@
 class LicensesController < ApplicationController
   include Authenticable
 
-  before_action :set_software
+  before_action :set_software, except: [:index]
   before_action :set_license, only: [:show, :edit, :update, :destroy]
 
   # GET /licenses
   # GET /licenses.json
   def index
-    @licenses = @software.licenses.all
+    context = params[:software_id] ? set_software.licenses : License
+    @licenses = context.all
+  end
+
+  def user_license
+    @licenses = current_user.licenses.where(software_id: @software.id)
   end
 
   # GET /licenses/1
@@ -57,7 +62,8 @@ class LicensesController < ApplicationController
   # DELETE /licenses/1
   # DELETE /licenses/1.json
   def destroy
-    @license.destroy
+    @license.state = :inactive
+    @license.save
     respond_to do |format|
       format.html { redirect_to software_licenses_url(@software) }
       format.json { head :no_content }
@@ -76,6 +82,6 @@ class LicensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def license_params
-      params.require(:license).permit(:software_id, :license_user, :license, :user_count, :purchase_date, :cost)
+      params.require(:license).permit(:software_id, :license_user, :license, :user_count, :purchase_date, :cost, :state)
     end
 end

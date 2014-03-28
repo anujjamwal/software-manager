@@ -32,6 +32,25 @@ html, body {
   overflow-y: scroll;
 }
 
+#body {
+  width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  background: white;
+  min-height: 400px;
+}
+
+.page {
+  padding: 10px;
+}
+
+.btn {
+  i {
+    margin-right: 10px;
+  }
+}
+
 #footer {
   height: 50px;
   margin: 0 auto;
@@ -55,6 +74,8 @@ html, body {
 
     div {
       text-align: center;
+      text-decoration: none;
+      color: #ddd;
     }
 
     div:first-child {

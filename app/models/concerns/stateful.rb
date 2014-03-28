@@ -9,7 +9,7 @@ module Stateful
     class_eval do
       self.const_get(:STATE).each do |state|
         define_method "#{state}?" do
-          self[:state].to_sym == state
+          "#{self[:state]}".to_sym == state
         end
       end
     end
