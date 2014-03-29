@@ -1,7 +1,11 @@
 <div id="userLicensePage" class="page">
   <%= link_to_back %>
 
+  <% if @software %>
   <h1>License for <%= @software.name %></h1>
+  <%else%>
+  <h1>Owned Licenses</h1>
+  <%end%>
 
   <%= render partial: 'owned_licenses', locals: {licenses: @licenses} %>
 </div>

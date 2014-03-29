@@ -1,20 +1,34 @@
 <div id="Dashboard" class="page">
     <div class="widget-container">
+        <% if current_user.can?(:requests, :view_all) %>
         <a class="widget widget-small" href="<%= requests_path %>">
             <div class="widget-main-area"><%= Request.count %></div>
             <div class="widget-footer">New Requests</div>
         </a>
+      <% else %>
+      <a class="widget widget-small" href="<%= requests_path %>">
+        <div class="widget-main-area"><%= current_user.requests.count %></div>
+        <div class="widget-footer">My Requests</div>
+      </a>
+      <% end %>
+
       <a class="widget widget-small" href="<%= softwares_path %>">
         <div class="widget-main-area"><%= Software.count %></div>
         <div class="widget-footer">Softwares</div>
       </a>
+      <% if current_user.can?(:licenses, :index) %>
       <a class="widget widget-small" href="<%= licenses_path %>">
         <div class="widget-main-area"><%= License.count %></div>
         <div class="widget-footer">Licenses</div>
       </a>
-
+      <%end%>
+      <a class="widget widget-small" href="<%= owned_licenses_path %>">
+        <div class="widget-main-area"><%= current_user.licenses.count %></div>
+        <div class="widget-footer">My Licenses</div>
+      </a>
     </div>
 
+    <% if current_user.can?(:softwares, :view_unapproved) %>
     <div class="widget-container">
         <div class="widget-container-header">Software Stats</div>
         <% Software::STATE.each do |state| %>
@@ -24,6 +38,7 @@
             </div>
         <% end %>
     </div>
+    <%end%>
 
     <div class="widget-container">
         <div class="widget-container-header">Software OS Breakdown</div>

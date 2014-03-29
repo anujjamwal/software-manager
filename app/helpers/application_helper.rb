@@ -3,8 +3,12 @@ module ApplicationHelper
     link_to '<i class="glyphicon glyphicon-circle-arrow-left"></i><span>Back</span>'.html_safe, url, class: "btn btn-default"
   end
 
-  def link_to_home()
+  def link_to_home
     link_to '<i class="glyphicon glyphicon-home"></i><span>Home</span>'.html_safe, '/', class: "btn btn-default"
+  end
+
+  def link_to_destroy(url, message='Are you sure?')
+    link_to '<i class="glyphicon glyphicon-trash"></i><span>Destroy</span>'.html_safe , url, method: :delete, data: { confirm: message }, class: 'btn btn-danger'
   end
 
   def link_to_download(software)

@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   include Authenticable
 
   def home
-    redirect_to softwares_path
   end
 
   private

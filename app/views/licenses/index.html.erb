@@ -16,7 +16,6 @@
       <th>state</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -24,16 +23,15 @@
     <% @licenses.each do |license| %>
       <tr>
         <td><%= license.software.name %>  </td>
-        <td><%= license.license_user %>  </td>
-        <td><%= license.license %>  </td>
+        <td><%= link_to license.license_user, software_license_path(license.software, license) %>  </td>
+        <td><%= link_to license.license, software_license_path(license.software, license) %>  </td>
         <td><%= license.user_count %>  </td>
         <td><%= link_to license.used_count, license_allocations_url(license) %>  </td>
         <td><%= license.purchase_date %></td>
         <td><%= license.cost %></td>
         <td><% if license.active? %><span class="label label-success">Active</span><%else%><span class="label label-danger">Inactive</span><%end%></td>
-        <td><%= link_to 'Show', software_license_path(license.software, license) %></td>
-        <td><%= link_to 'Edit', edit_software_license_path(license.software, license) %></td>
-        <td><%= link_to 'Destroy', software_license_path(license.software, license), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to_edit edit_software_license_path(license.software, license) %></td>
+        <td><%= link_to_destroy software_license_path(license.software, license) %></td>
       </tr>
     <% end %>
   </tbody>

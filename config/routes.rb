@@ -4,6 +4,10 @@ SoftwareManager::Application.routes.draw do
 
   resources :licenses, only: [:index] do
     resources :allocations
+
+    collection do
+      get 'owned' => 'licenses#user_license', as: :owned
+    end
   end
 
   resources :operating_systems

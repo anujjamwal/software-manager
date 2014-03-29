@@ -1,7 +1,7 @@
 class LicensesController < ApplicationController
   include Authenticable
 
-  before_action :set_software, except: [:index]
+  before_action :set_software, except: [:index, :user_license]
   before_action :set_license, only: [:show, :edit, :update, :destroy]
 
   # GET /licenses
@@ -12,7 +12,8 @@ class LicensesController < ApplicationController
   end
 
   def user_license
-    @licenses = current_user.licenses.where(software_id: @software.id)
+    licenses = current_user.licenses
+    @licenses =  params[:software_id] ? licenses.where(software_id: set_software.id) : licenses
   end
 
   # GET /licenses/1
