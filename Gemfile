@@ -13,6 +13,7 @@ gem 'whenever'
 
 gem 'bootstrap-sass'
 gem 'will_paginate-bootstrap'
+gem 'chartkick'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

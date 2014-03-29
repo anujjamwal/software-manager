@@ -109,3 +109,42 @@ html, body {
 
   }
 }
+
+.widget-container {
+    padding: 10px;
+    font-family: "Open Sans" sans-serif;
+    .widget-container-header {
+        height: 37px;
+        font-size: 20px;
+    }
+}
+.widget {
+    display: inline-block;
+    background: #468FE0;
+    color: white;
+    margin: 4px;
+    cursor: pointer;
+    border: 1px solid white;
+    
+    &:hover {
+        text-decoration: none;
+        color: white;
+        border: 1px solid #386DA8;
+    }
+    
+    &.widget-small {
+        min-width: 150px;
+        height: 150px;
+        
+        .widget-main-area {
+            font-size: 5em;
+            text-align: center;
+            padding: 0 10px;
+        }
+        
+        .widget-footer {
+            text-align: center;
+            font-size: 1.4em;
+        }
+    }
+}

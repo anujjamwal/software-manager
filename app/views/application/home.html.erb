@@ -1,3 +1,50 @@
 <div id="Dashboard" class="page">
-  <h1>Dashboard</h1>
+    <div class="widget-container">
+        <a class="widget widget-small">
+            <div class="widget-main-area"><%= Request.count %></div>
+            <div class="widget-footer">New Requests</div>
+        </a>
+    </div>
+
+    <div class="widget-container">
+        <div class="widget-container-header">Software OS Breakdown</div>
+        <a class="widget widget-small" href="<%= softwares_path %>">
+            <div class="widget-main-area"><%= Software.count %></div>
+            <div class="widget-footer">All OS</div>
+        </a>
+        <% OperatingSystem.all.each do |os| %>
+            <a class="widget widget-small" href="<%= os_software_path(os: os.name.downcase) %>">
+                <div class="widget-main-area"><%= os.softwares.count %></div>
+                <div class="widget-footer"><%= os.name %></div>
+            </a>
+        <% end %>
+    </div>
+
+    <div class="widget-container">
+        <div class="widget-container-header">$$ License Purchase Cost (Active Only)</div>
+        <div class="widget widget-small">
+            <div class="widget-main-area">$<%= License.active.sum(:cost) %></div>
+            <div class="widget-footer">All OS</div>
+        </div>
+        <% OperatingSystem.all.each do |os| %>
+            <a class="widget widget-small" href="<%= os_software_path(os: os.name.downcase) %>">
+                <div class="widget-main-area">$<%= License.active.joins(:software).where('softwares.operating_system_id' => os.id).sum(:cost) %></div>
+                <div class="widget-footer"><%= os.name %></div>
+            </a>
+        <% end %>
+    </div>
+
+    <div class="widget-container">
+        <div class="widget-container-header">$$ Unused License Cost (Active Only)</div>
+        <div class="widget widget-small">
+            <div class="widget-main-area">$<%= License.active.sum('cost') -  License.active.joins(', (Select license_id, count(id) as count from allocations where state="active") as a').sum('licenses.cost/user_count*a.count') %></div>
+            <div class="widget-footer">All OS</div>
+        </div>
+        <% OperatingSystem.all.each do |os| %>
+            <a class="widget widget-small" href="<%= os_software_path(os: os.name.downcase) %>">
+                <div class="widget-main-area">$<%= License.active.joins(:software).where('softwares.operating_system_id' => os.id).sum(:cost) - License.active.joins(:software).where('softwares.operating_system_id' => os.id).joins(', (Select license_id, count(id) as count from allocations where state="active") as a').sum('licenses.cost/user_count*a.count') %></div>
+                <div class="widget-footer"><%= os.name %></div>
+            </a>
+        <% end %>
+    </div>
 </div>
