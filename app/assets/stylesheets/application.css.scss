@@ -148,3 +148,29 @@ html, body {
         }
     }
 }
+
+.alert-warning {
+  i {
+    margin-right: 10px;
+  }
+}
+
+.alert {
+  width: 90%;
+  margin: 10px auto;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #eee;
+  th {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+}

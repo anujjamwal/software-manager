@@ -1,3 +1,5 @@
+<div class="page">
+
 <h1>Listing requests</h1>
 
 <table>
@@ -19,12 +21,14 @@
         <td><%= request.project_code %></td>
         <td><%= request.user.name %> (<%= request.user.email %>)</td>
         <td><% if availability %><span class="label label-success">Available</span><%else%><span class="label label-danger">Not Available</span><%end%></td>
-        <td><%= link_to 'Deny', software_request_path(request.software, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <td><%= link_to 'Deny', software_request_path(request.software, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <% if current_user.can?(:softwares, :approve) %>
-            <td><%= link_to 'Approve', approve_software_request_path(request.software, request), method: :post, class: 'btn btn-primary' %></td>
+            <%= link_to 'Approve', approve_software_request_path(request.software, request), method: :post, class: 'btn btn-primary' %>
         <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+    </div>
 

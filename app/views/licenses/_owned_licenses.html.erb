@@ -1,0 +1,27 @@
+<% if licenses.count > 0 %>
+<table id="ownedLicenses">
+  <thead>
+  <tr>
+    <th>Software</th>
+    <th>License user</th>
+    <th>License</th>
+    <th>Cost</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% licenses.each do |license| %>
+      <% license.allocations.each do |allocation| %>
+          <tr>
+            <td><%= license.software.name %>  </td>
+            <td><%= license.license_user %>  </td>
+            <td><%= license.license %>  </td>
+            <td>$<%= license.cost / license.user_count %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<% else %>
+    <%= alert_warning 'You donot own a license for this software' %>
+<% end %>

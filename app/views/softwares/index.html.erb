@@ -23,8 +23,7 @@
           <%= will_paginate @softwares, renderer: BootstrapPagination::Rails %>
         </div>
     <% else %>
-        <div class="alert alert-warning">
-          <i class="glyphicon glyphicon-exclamation-sign"></i><span>No softwares found</span></div>
+        <%= alert_warning "No softwares found" %>
     <% end %>
   </div>
 </div>

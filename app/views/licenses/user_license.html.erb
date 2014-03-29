@@ -1,29 +1,7 @@
 <div id="userLicensePage" class="page">
-  <%= link_to '<i class="glyphicon glyphicon-circle-arrow-left"></i><span>Back</span>'.html_safe, :back, class: "btn btn-default" %>
+  <%= link_to_back %>
 
   <h1>License for <%= @software.name %></h1>
 
-  <table>
-    <thead>
-    <tr>
-      <th>Software</th>
-      <th>License user</th>
-      <th>License</th>
-      <th>Cost</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @licenses.each do |license| %>
-    <% license.allocations.each do |allocation| %>
-        <tr>
-          <td><%= license.software.name %>  </td>
-          <td><%= license.license_user %>  </td>
-          <td><%= license.license %>  </td>
-          <td>$<%= license.cost / license.user_count %></td>
-        </tr>
-    <% end %>
-    <% end %>
-    </tbody>
-  </table>
+  <%= render partial: 'owned_licenses', locals: {licenses: @licenses} %>
 </div>
