@@ -1,17 +1,32 @@
 <div id="Dashboard" class="page">
     <div class="widget-container">
-        <a class="widget widget-small">
+        <a class="widget widget-small" href="<%= requests_path %>">
             <div class="widget-main-area"><%= Request.count %></div>
             <div class="widget-footer">New Requests</div>
         </a>
+      <a class="widget widget-small" href="<%= softwares_path %>">
+        <div class="widget-main-area"><%= Software.count %></div>
+        <div class="widget-footer">Softwares</div>
+      </a>
+      <a class="widget widget-small" href="<%= licenses_path %>">
+        <div class="widget-main-area"><%= License.count %></div>
+        <div class="widget-footer">Licenses</div>
+      </a>
+
+    </div>
+
+    <div class="widget-container">
+        <div class="widget-container-header">Software Stats</div>
+        <% Software::STATE.each do |state| %>
+            <div class="widget widget-small">
+                <div class="widget-main-area"><%= Software.where(state: state).count %></div>
+                <div class="widget-footer"><%= state %></div>
+            </div>
+        <% end %>
     </div>
 
     <div class="widget-container">
         <div class="widget-container-header">Software OS Breakdown</div>
-        <a class="widget widget-small" href="<%= softwares_path %>">
-            <div class="widget-main-area"><%= Software.count %></div>
-            <div class="widget-footer">All OS</div>
-        </a>
         <% OperatingSystem.all.each do |os| %>
             <a class="widget widget-small" href="<%= os_software_path(os: os.name.downcase) %>">
                 <div class="widget-main-area"><%= os.softwares.count %></div>

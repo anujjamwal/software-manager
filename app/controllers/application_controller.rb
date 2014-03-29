@@ -5,9 +5,7 @@ class ApplicationController < ActionController::Base
   include Authenticable
 
   def home
-    unless can?(:view_dashboard)
-      redirect_to softwares_path
-    end
+    redirect_to softwares_path
   end
 
   private

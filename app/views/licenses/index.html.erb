@@ -1,3 +1,4 @@
+<div class="page">
 <%= link_to_back %>
 
 <h1>Listing licenses</h1>
@@ -39,6 +40,8 @@
 </table>
 
 <br>
-<% if current_user.can?(:allocations, :new) && @software%>
-<%= link_to 'New License', new_software_license_path(@software) %>
+<% if current_user.can?(:licenses, :new) && @software%>
+    <%= link_to 'New License', new_software_license_path(@software) %>
 <%end%>
+
+    </div>

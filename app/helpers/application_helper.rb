@@ -3,6 +3,10 @@ module ApplicationHelper
     link_to '<i class="glyphicon glyphicon-circle-arrow-left"></i><span>Back</span>'.html_safe, url, class: "btn btn-default"
   end
 
+  def link_to_home()
+    link_to '<i class="glyphicon glyphicon-home"></i><span>Home</span>'.html_safe, '/', class: "btn btn-default"
+  end
+
   def link_to_download(software)
     link_to '<i class="glyphicon glyphicon-download"></i><span>Download</span>'.html_safe, download_software_path(software), class: "btn btn-success"
   end

@@ -174,3 +174,17 @@ table {
     border-bottom: 1px solid #eee;
   }
 }
+
+#unauthorized {
+  div i {
+    font-size: 30em;
+    text-align: center;
+    width: 100%;
+  }
+
+  .text {
+    text-align: center;
+    font-size: 4em;
+    font-family: 'open sans' sans-serif;
+  }
+}
