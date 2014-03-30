@@ -1,24 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="page">
+  <%= link_to_back users_path %>
+  <%= link_to_edit edit_user_path(@user) %>
 
-<p>
-  <strong>Uid:</strong>
-  <%= @user.uid %>
-</p>
+  <p>
+    <strong>Uid:</strong>
+    <%= @user.uid %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <strong>Role:</strong>
-  <%= @user.role.name %>
-</p>
+  <p>
+    <strong>Role:</strong>
+    <%= @user.role.name %>
+  </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <p>
+    <strong>Licenses:</strong>
+    <%= @user.allocations.count %>
+  </p>
+
+  <div class="licenses-owned">
+    <div class="heading">Licenses Owned</div>
+    <%= render partial: 'licenses/owned_licenses', locals: {licenses: @user.licenses} %>
+  </div>
+</div>

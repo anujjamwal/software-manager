@@ -1,35 +1,36 @@
 <div class="page">
-<h1>Listing users</h1>
+  <h1>Listing users</h1>
 
-<table>
-  <thead>
+  <table>
+    <thead>
     <tr>
       <th>UID</th>
       <th>Name</th>
       <th>Email</th>
       <th>Role</th>
-      <th></th>
-      <th></th>
+      <th>Licenses</th>
       <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @users.each do |user| %>
-      <tr>
-        <td><%= user.uid %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.role.name %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+          <td><%= user.uid %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role.name %></td>
+          <td><%= user.allocations.count %></td>
+          <td><%= link_to 'Show', user, class: 'btn btn-default' %>
+              <%= link_to_edit edit_user_path(user) %>
+              <%= link_to_destroy user %></td>
+        </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <div class="pagination-menu">
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+  </div>
 
-<%= link_to 'New User', new_user_path %>
 </div>
