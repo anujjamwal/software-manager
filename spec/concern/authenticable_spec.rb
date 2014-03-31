@@ -2,6 +2,13 @@ require 'spec_helper'
 
 shared_examples 'authenticable' do
   let(:auth_user) { FactoryGirl.create(:user, name: 'Authenticated User', email: 'auth.user@sft.com')}
+  before :each do
+    $auth_strategy = :saml
+  end
+
+  after :each do
+    $auth_strategy = :cas
+  end
 
   describe :authenticated? do
 

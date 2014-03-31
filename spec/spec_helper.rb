@@ -50,3 +50,5 @@ RSpec.configure do |config|
     end
   end
 end
+
+CASClient::Frameworks::Rails::Filter.fake('alladin')

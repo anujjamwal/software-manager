@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem "rubycas-client", "~> 2.3.9"
 
 gem 'omniauth'
 gem 'omniauth-saml'
@@ -24,7 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -58,9 +59,4 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'pry'
-end
-
-group :deployment do
-  gem 'knife-solo'
-  gem 'librarian-chef'
 end

@@ -1,4 +1,5 @@
-settings = YAML.load(File.read(File.join(Rails.root, 'config', 'auth.yml')))
+settings = YAML.load(File.read(File.join(Rails.root, 'config', 'auth.yml')))[Rails.env]
+$auth_strategy = settings['strategy']
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :saml,

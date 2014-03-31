@@ -1,3 +1,23 @@
-okta:
-  fingerprint: fingerprint
-  target_url: target_url
+development:
+    strategy: cas
+    cas:
+      url: https://cas.thoughtworks.com/cas
+    okta:
+      fingerprint:
+      target_url:
+
+test:
+    strategy: cas
+    cas:
+      url: https://cas.thoughtworks.com/cas
+    okta:
+      fingerprint:
+      target_url:
+
+production:
+    strategy: cas
+    cas:
+      url: https://cas.thoughtworks.com/cas
+    okta:
+      fingerprint:
+      target_url:
