@@ -26,7 +26,7 @@
         <td><%= link_to license.license_user, software_license_path(license.software, license) %>  </td>
         <td><%= link_to license.license, software_license_path(license.software, license) %>  </td>
         <td><%= license.user_count %>  </td>
-        <td><%= link_to license.used_count, license_allocations_url(license) %>  </td>
+        <td><%= link_to license.used_count, software_license_path(license.software, license) %>  </td>
         <td><%= license.purchase_date %></td>
         <td><%= license.cost %></td>
         <td><% if license.active? %><span class="label label-success">Active</span><%else%><span class="label label-danger">Inactive</span><%end%></td>

@@ -26,6 +26,12 @@
         <div class="widget-main-area"><%= current_user.licenses.count %></div>
         <div class="widget-footer">My Licenses</div>
       </a>
+      <% if current_user.can?(:users, :index) %>
+     <a class="widget widget-small" href="<%= users_path %>">
+        <div class="widget-main-area"><%= User.count %></div>
+        <div class="widget-footer">Users</div>
+      </a>
+          <% end %>
     </div>
 
     <% if current_user.can?(:softwares, :view_unapproved) %>
