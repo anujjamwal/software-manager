@@ -16,6 +16,8 @@
 //= require bootstrap
 //= require_tree .
 
-$('.download-software').click(function() {
-    $(this).attr('target', '_blank');
+$(document).ready(function() {
+  $('.download-software').click(function() {
+      $(this).attr('target', '_blank');
+  });
 });
