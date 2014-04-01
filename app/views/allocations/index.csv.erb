@@ -1,0 +1,6 @@
+<%- headers = ["Id", "License User", "User", "Project Code"] -%>
+<%= CSV.generate_line headers %>
+<%- @allocations.each do |n| -%>
+    <%- row = [ n.id, n.license.license_user, n.user.name, n.project_code] -%>
+    <%= CSV.generate_line row, :row_sep => ?\t, :quote_char => ?\ %>
+<%- end -%>
