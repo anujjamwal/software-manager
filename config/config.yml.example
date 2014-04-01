@@ -1,8 +1,29 @@
 development:
     storage:
+    formats:
+        - .dmg
+        - .exe
+        - .msi
+        - .pkg
+        - .deb
+        - .rpm
 
 test:
     storage:
+    formats:
+        - .dmg
+        - .exe
+        - .msi
+        - .pkg
+        - .deb
+        - .rpm
 
 production:
     storage:
+    formats:
+        - .dmg
+        - .exe
+        - .msi
+        - .pkg
+        - .deb
+        - .rpm
