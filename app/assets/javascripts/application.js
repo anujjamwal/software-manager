@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+$('.download-software').click(function() {
+    $(this).attr('target', '_blank');
+});

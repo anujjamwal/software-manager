@@ -52,10 +52,22 @@ namespace :deploy do
       end
     end
   end
+
+  desc 'Precompile assets'
+  task :assets_compile => [:set_rails_env] do
+    on roles(:sync) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, "exec rake assets:precompile"
+        end
+      end
+    end
+  end
 end
 
 #after 'deploy:update_code', 'deploy:link_config'
 before 'deploy:migrate', 'deploy:link_config'
 after 'deploy:migrate', 'deploy:seed'
+after :deploy, 'deploy:assets_compile'
 after :deploy, 'deploy:restart'
 after :deploy, 'deploy:whenever'

@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def link_to_download(software)
-    link_to '<i class="glyphicon glyphicon-download"></i><span>Download</span>'.html_safe, download_software_path(software), class: "btn btn-success"
+    link_to '<i class="glyphicon glyphicon-download"></i><span>Download</span>'.html_safe, download_software_path(software), class: "btn btn-success download-software"
   end
 
   def link_to_request_access(software)
