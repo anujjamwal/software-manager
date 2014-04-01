@@ -35,7 +35,7 @@ namespace :files do
           print "   Already present. Ignoring\n"
         end
       else
-        extract_files(os, File.join(dir, item), accepted_configs)
+        extract_files(os, File.join(dir, item), accepted_configs) rescue nil
       end
 
     end
