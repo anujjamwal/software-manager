@@ -79,7 +79,7 @@ describe SoftwaresController do
         software.save!
 
         controller.should_receive(:send_file)
-        .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream')
+        .with(software.path, buffer_size: 4096, stream: true, type: 'application/octet-stream', disposition: 'inline')
         .and_return { controller.render :nothing => true }
 
         get :download, {:id => software.to_param}, valid_session
