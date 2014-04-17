@@ -38,10 +38,10 @@
     <div class="widget-container">
         <div class="widget-container-header">Software Stats</div>
         <% Software::STATE.each do |state| %>
-            <div class="widget widget-small">
+            <a class="widget widget-small" href="<%= softwares_path(state: state)%>">
                 <div class="widget-main-area"><%= Software.where(state: state).count %></div>
                 <div class="widget-footer"><%= state %></div>
-            </div>
+            </a>
         <% end %>
     </div>
     <%end%>
