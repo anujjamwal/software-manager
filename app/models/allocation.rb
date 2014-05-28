@@ -8,6 +8,8 @@ class Allocation < ActiveRecord::Base
   validates :license, :user, presence: true
   validate :license_availability
 
+  after_create :notify_create
+
   def license_availability
     errors.add(:license, 'unavailable for allocation') unless self.license.available? if self.license
   end
@@ -16,5 +18,11 @@ class Allocation < ActiveRecord::Base
     instance = new
     instance.update(license: license, user: request.user, project_code: request.project_code, state: :active)
     instance
+  end
+
+  private
+
+  def notify_create
+    LicenseMailer.request_accepted(self).deliver
   end
 end

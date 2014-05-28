@@ -1,6 +1,7 @@
 class AuthController < ApplicationController
   skip_before_filter :protected!
   skip_before_filter :authorized!
+
   def create
     redirect_url = '/'
     case params[:provider]

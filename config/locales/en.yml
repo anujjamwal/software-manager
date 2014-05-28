@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  license_mailer:
+    request_accepted:
+      subject: '[License Request] License for %{name}'
