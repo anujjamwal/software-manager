@@ -14,10 +14,4 @@ describe Software do
   it { should belong_to :operating_system }
 
   it_behaves_like 'stateful'
-
-  describe 'search' do
-    it 'should fire the correct where clause in query' do
-      expect(Software.search('hello').where_values).to eq(["LOWER(name) like '%hello%'"])
-    end
-  end
 end
