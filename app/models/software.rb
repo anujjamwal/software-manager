@@ -3,6 +3,17 @@ class Software < ActiveRecord::Base
   DEFAULT_DOWNLOAD_POLICY = DownloadPolicy
 
   include Stateful
+  include PgSearch
+
+  pg_search_scope :search,
+                  against: [:name],
+                  using: {
+                      tsearch: {
+                          dictionary: 'english',
+                          tsvector_column: 'tsvector_content_tsearch'
+                      }
+                  }
+
 
   belongs_to :operating_system
   belongs_to :download_policy
@@ -14,8 +25,6 @@ class Software < ActiveRecord::Base
 
   after_initialize :defaults, unless: :persisted?
   before_create :set_default_download_policy
-
-  scope :search, ->(key) { where('LOWER(name) like ?', "%#{key.to_s.downcase}%") }
 
   private
   def defaults

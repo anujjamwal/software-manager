@@ -7,11 +7,9 @@ class SoftwaresController < ApplicationController
   # GET /softwares.json
   def index
     context = params[:os] ? OperatingSystem.where(['lower(name) = ?', params[:os].downcase]).first.softwares : Software
-    if can?(:view_unapproved)
-      @softwares = context.search(params[:q]).paginate(:page => params[:page])
-    else
-      @softwares = context.approved.search(params[:q]).paginate(:page => params[:page])
-    end
+    context = can?(:view_unapproved) ? context : context.approved
+    softwares = params[:q].present? ? context.search(params[:q]) : context
+    @softwares = softwares.paginate(:page => params[:page])
   end
 
   # GET /softwares/1

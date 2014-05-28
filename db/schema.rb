@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328194441) do
+ActiveRecord::Schema.define(version: 20140528122314) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "allocations", force: true do |t|
     t.integer  "license_id"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140328194441) do
   create_table "licenses", force: true do |t|
     t.integer  "software_id"
     t.string   "license_user"
-    t.text     "license",       limit: 4096
+    t.text     "license"
     t.integer  "user_count"
     t.date     "purchase_date"
     t.date     "valid_upto"
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140328194441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.text     "permissions", limit: 2048
+    t.text     "permissions"
   end
 
   create_table "softwares", force: true do |t|
@@ -71,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140328194441) do
     t.datetime "updated_at"
     t.integer  "download_policy_id"
     t.integer  "download_count"
+    t.text     "description"
   end
 
   create_table "users", force: true do |t|

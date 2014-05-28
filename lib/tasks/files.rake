@@ -3,7 +3,7 @@ namespace :files do
   task sync: :environment do
     base_location = Settings.for('storage')
     accepted_configs = Settings.for('formats')
-    print accepted_configs, '\n'
+    print accepted_configs, "\n"
 
     Dir[File.join(base_location, '*/')].each do |dir|
 
