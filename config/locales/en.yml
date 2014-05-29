@@ -23,3 +23,5 @@ en:
   license_mailer:
     request_accepted:
       subject: '[License Request] License for %{name}'
+    requested:
+      subject: '[License Request] License Request for %{name}'

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>TW Software Manager</title>
+      <style>
+        body { width: 100%}
+        div {margin: 0; padding: 0}
+        .center {margin: 0 auto}
+        #body {background-color: #c4e3f3; width: 700px; }
+      </style>
+    </head>
+    <body>
+        <%= render partial: 'header' %>
+        <div id="body">
+          <div class="center" style="padding: 20px">
+              <p>
+                Hi<br/>
+                <br/>
+                You requested for a license of <em style="font-size: 1.5em"><%= link_to @software.name, software_url(@software) %></em><br/>
+                <br/>
+                The approval may take some time.      
+                <br/>
+              </p>
+            </div>
+        </div>
+        <%= render partial: 'footer' %>
+    </body>
+</html>
